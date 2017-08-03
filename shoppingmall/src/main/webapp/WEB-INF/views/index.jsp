@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
 <html>
 
 <head>
@@ -59,7 +62,7 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <img class="img-fluid d-block" src="0003.jpg"> </div>
+          <img class="img-fluid d-block" src="img/0003.jpg" > </div>
       </div>
     </div>
   </div>
