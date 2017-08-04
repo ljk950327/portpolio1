@@ -8,6 +8,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<typeAliases>
 		<typeAlias alias="qnaDTO" type="com.jaegyu.shoppingmall.qna.qnaDTO"/>
 		<typeAlias alias="memberDTO" type="com.jaegyu.shoppingmall.member.memberDTO"/>
+		<typeAlias alias="zipcodeDTO" type="com.jaegyu.shoppingmall.member.zipcode.zipcodeDTO"/>
+		
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">

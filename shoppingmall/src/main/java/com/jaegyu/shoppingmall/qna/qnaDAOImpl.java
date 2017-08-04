@@ -6,33 +6,40 @@ public class qnaDAOImpl implements qnaDAO {
 
 	@Override
 	public List<qnaDTO> listqna() {
-		// TODO Auto-generated method stub
+		 
 		return qnaMapper.listqna();
 	}
 
 	@Override
 	public qnaDTO getqna(int num) {
-		// TODO Auto-generated method stub
+		 
 		return qnaMapper.getqna(num);
 	}
 
 	@Override
 	public int insertqna(qnaDTO dto) {
-		// TODO Auto-generated method stub
+		String sql=null;
+		if(dto.getNum()==0){	//새글
+			sql="update board set re_step=re_step+1";
+		} else{	//답글
+			sql="update board set re_step=re_step+1 where re_step>"+dto.getRe_step();
+			dto.setRe_step(dto.getRe_step()+1);
+			dto.setRe_level(dto.getRe_level()+1);
+		}
+		qnaMapper.restepCount(sql);
 		return qnaMapper.insertqna(dto);
 	}
 
 	@Override
 	public int deleteqna(int num, String passwd) {
 		return qnaMapper.deleteqna(num);
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public int updateqna(qnaDTO dto) {
 		return qnaMapper.updateqna(dto);
-		// TODO Auto-generated method stub
+		 
 		
 	}
 

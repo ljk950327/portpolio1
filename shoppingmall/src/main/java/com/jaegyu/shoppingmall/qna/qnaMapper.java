@@ -71,6 +71,14 @@ public class qnaMapper {
 		return res;
 	}
 	
+	public static void restepCount(String sql){
+		SqlSession session=sqlMapper.openSession();
+		java.util.HashMap map=new java.util.HashMap();
+		map.put("sql",sql);
+		session.update("restepCount",map);
+		session.commit();
+		session.close();
+	}
 	
 	
 
