@@ -37,7 +37,7 @@
           <br>
           <div class="card">
             <div class="card-block">
-              <h4>${my id}님</h4>
+              <h4>${id}님</h4>
               <br>
               <p>환영합니다. 오늘도 좋은하루 보내세요.</p>
             </div>
@@ -81,10 +81,10 @@
                 <th>수량</th>
               </tr>
               <tr>
-                <td>=dto.getTitle() %&gt;</td>
-                <td>=dto.getAuthor() %&gt;</td>
-                <td>dto.getPrice() %&gt;</td>
-                <td>dto.getQty() %&gt;</td>
+                <td><img src=""></td>
+                <td>${goods_name} </td>
+                <td>${price }</td>
+                <td>${qty }</td>
                 <td>
                   <form method="post" action="bookShop.do">
                     <input type="hidden" name="command" value="DEL">
