@@ -15,8 +15,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<insert id="insertqna" parameterType="qnaDTO">
-		insert into qna values(spring_qna_seq.nextval,#{writer},
-		#{email},#{subject},#{passwd},sysdate,0,#{content},#{ip},#{re_step},#{re_level})
+		insert into qna values(qna_seq.nextval,#{writer},
+		#{email},#{subject},sysdate,0,#{content},#{ip},#{re_step},#{re_level})
 	</insert>
 
 	<update id="readCountPlus" parameterType="int">

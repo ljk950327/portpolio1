@@ -1,0 +1,14 @@
+create table qna(
+num number primary key,
+writer varchar2(20) not null,
+email varchar2(20),
+subject varchar2(100) not null,
+reg_date varchar2(10) not null,
+readcount number default 0,
+content varchar2(4000) not null,
+ip varchar2(20) not null,
+re_step number,
+re_level number);
+
+create sequence qna_seq;
+
