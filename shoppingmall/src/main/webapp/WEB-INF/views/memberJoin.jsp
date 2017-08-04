@@ -51,13 +51,13 @@
                 <tr>
                   <th style="width:200px;">이름</th>
                   <td>
-                    <input type="text" name="name" class="box" value="${my name}" readonly=""> </td>
+                    <input type="text" name="name" class="box" value="${my name}" readonly> </td>
                 </tr>
                 <tr>
                   <th>주민번호</th>
                   <td>
-                    <input type="text" name="ssn1" class="box" maxlength="6" readonly="" value="${my ssn1}"> -
-                    <input type="password" name="ssn2" class="box" maxlength="7" value="${my ssn2}" readonly=""> </td>
+                    <input type="text" name="ssn1" class="box" maxlength="6" readonly value="${my ssn1}"> -
+                    <input type="password" name="ssn2" class="box" maxlength="7" value="${my ssn2}" readonly> </td>
                 </tr>
                 <tr>
                   <th>아이디</th>
