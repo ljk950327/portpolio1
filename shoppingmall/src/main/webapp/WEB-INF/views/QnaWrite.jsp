@@ -1,6 +1,9 @@
+<%@page import="com.jaegyu.shoppingmall.qna.qnaDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%
+	qnaDTO dto = (qnaDTO) request.getAttribute("dto");
+%>
 <html>
 
 <head>
@@ -66,9 +69,9 @@
         <div class="col-md-12">
           <div align="center">
             <form name="f" action="Qnawrite.do" method="post">
-              <input type="hidden" name="num" value="<%=num%>">
-              <input type="hidden" name="re_step" value="<%=re_step%>">
-              <input type="hidden" name="re_level" value="<%=re_level%>">
+              <input type="hidden" name="num" value="${dto.num }">
+              <input type="hidden" name="re_step" value="${dto.re_step }">
+              <input type="hidden" name="re_level" value="${dto.re_level }">
               <table border="0" width="1100" class="table">
                 <tbody>
                   <tr class="bg-faded">
@@ -77,12 +80,12 @@
                   <tr>
                     <th class="bg-faded">작성자</th>
                     <td>
-                      <input type="text" name="writer" value="${my id}" readonly=""> </td>
+                      <input type="text" name="writer" value="${dto.writer}" readonly=""> </td>
                   </tr>
                   <tr>
                     <th class="bg-faded">Email</th>
                     <td>
-                      <input type="text" name="subject" value="${my email}" readonly=""> </td>
+                      <input type="text" name="subject" value="${dto.email}" readonly=""> </td>
                   </tr>
                   <tr>
                     <th class="bg-faded">제목</th>

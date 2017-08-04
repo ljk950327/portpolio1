@@ -1,6 +1,10 @@
+
+<%@page import="com.jaegyu.shoppingmall.qna.qnaDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%
+	qnaDTO dto = (qnaDTO) request.getAttribute("dto");
+%>
 <html>
 
 <head>
@@ -77,38 +81,38 @@
                 <tr class="">
                   <th class="bg-faded">글번호</th>
                   <td>
-                    <input type="box" name="num" size="10" value="${num}"> </td>
+                    <input type="box" name="num" size="10" value="${dto.num}"> </td>
                   <th style="width:100px;">조회수&nbsp; :</th>
                   <td>
-                    <input type="box" name="num" size="10" value="${hit_num}"> </td>
+                    <input type="box" name="num" size="10" value="${dto.readcount}"> </td>
                 </tr>
                 <tr>
                   <th class="bg-faded">작성자</th>
                   <td>
-                    <input type="box" name="writer" value="${my id}" readonly=""> </td>
+                    <input type="box" name="writer" value="${dto.writer}" readonly=""> </td>
                   <th style="width:100px;">작성일&nbsp; :</th>
                   <td>
-                    <input type="box" name="num" size="10" value="${write_day}"> </td>
+                    <input type="box" name="num" size="10" value="${dto.sysdate}"> </td>
                 </tr>
                 <tr>
                   <th class="bg-faded">Email</th>
                   <td colspan="3">
-                    <input type="box" name="subject" value="${my email}" readonly=""> </td>
+                    <input type="box" name="subject" value="${dto.email}" readonly=""> </td>
                 </tr>
                 <tr>
                   <th class="bg-faded">제목</th>
                   <td colspan="3">
-                    <input type="box" name="email" size="40" value="${subject}" readonly=""> </td>
+                    <input type="box" name="email" size="40" value="${dto.subject}" readonly=""> </td>
                 </tr>
                 <tr>
                   <th class="bg-faded">내용</th>
-                  <td colspan="3"><textarea name="content" rows="10" cols="120" readonly="" class="box">${content}</textarea></td>
+                  <td colspan="3"><textarea name="content" rows="10" cols="120" readonly="" class="box">${dto.content}</textarea></td>
                 </tr>
                 <tr>
                   <td align="center" colspan="4">
-                    <input type="button" class="btn btn-default" value="답글달기" onclick="window.location='write_form.do?num=<%=dto.getNum()%>&amp;re_step=<%=dto.getRe_step()%>&amp;re_level=<%=dto.getRe_level()%>'">
-                    <input type="button" onclick="window.location='update.do?num=<%=dto.getNum()%>'" value="수정" class="btn btn-default">
-                    <input type="button" onclick="window.location='delete.do?num=<%=dto.getNum()%>'" value="삭제" class="btn btn-default">
+                    <input type="button" class="btn btn-default" value="답글달기" onclick="window.location='write_form.do?num=${dto.num} &amp;re_step=${dto.re_step}&amp;re_level=${dto.re_level} '">
+                    <input type="button" onclick="window.location='update.do?num=${dto.num}'" value="수정" class="btn btn-default">
+                    <input type="button" onclick="window.location='delete.do?num=${dto.num}'" value="삭제" class="btn btn-default">
                     <input type="button" onclick="window.location='Qnalist.me'" value="목록보기" class="btn btn-default"> </td>
                 </tr>
               </tbody>
