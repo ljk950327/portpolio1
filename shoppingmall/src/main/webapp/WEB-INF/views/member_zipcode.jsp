@@ -2,7 +2,7 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ page import="java.util.*"%>
 <%
-	List<zipcodeDTO> list=(ArrayList)request.getAttribute("zipcodelist");
+	List<zipcodeDTO> list=(ArrayList)request.getAttribute("list");
 %>
 
 <html>
@@ -58,11 +58,11 @@ function setZipcode(zip1,zip2,addr){
 %>
 <tr>
 	<td width="20%">
-	<a href="#"	onclick="setZipcode(${zip1 },${zip2 },'${addr }')">
-		<font size="2">${zipcode }</font>
+	<a href="#"	onclick="setZipcode(${zip1},${zip2},'${addr}')">
+		<font size="2">${zipcode}</font>
 	</a>
 	</td>
-	<td width="80%"><font size="2">${addr }</font></td>
+	<td width="80%"><font size="2">${addr}</font></td>
 </tr>
 <%		}
 	}else{ %>

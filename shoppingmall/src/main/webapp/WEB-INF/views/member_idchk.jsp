@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<% 
+	String cid=(String)request.getAttribute("cid"); 
+%>
 <html>
 <head>
 <script>
@@ -10,9 +12,8 @@ function windowclose(){
 }
 </script>
 </head>
-<body bgcolor="#f5f5f5">
-<c:choose>
-<c:when test="${check==1 }">
+<body>
+<% if(cid!=null){ %>
 <table width="360" border="0" cellspacing="0" cellpadding="5">
 	<tr align="center">
 	<td height="30">
@@ -21,19 +22,18 @@ function windowclose(){
 	</tr>
 </table>
 
-<form action="./MemberIDCheckAction.me" method="post" name="checkForm" >
+<form action="memberIDConfirm.me" method="post"  >
 <table width="360" border="0" cellspacing="0" cellpadding="5">
 	<tr>
 	<td align="center">
 		<font size="2">다른 아이디를 선택하세요.</font><p>
-		<input type="text" size="10" maxlength="12" name="MEMBER_ID"/>
+		<input type="text" size="10" maxlength="12" name="id"/>
 		<input type="submit" value="중복확인" />
 	</td>					
 	</tr>
 </table>
 </form>
-</c:when>
-<c:otherwise>
+<%}else{ %>
 <table width="360" border="0" cellspacing="0" cellpadding="5">
 	<tr>
 		<td align="center">
@@ -43,7 +43,6 @@ function windowclose(){
 		</td>
 	</tr>
 </table>
-</c:otherwise>
-</c:choose>
+<%} %>
 </body>
 </html>

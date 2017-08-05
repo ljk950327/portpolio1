@@ -19,60 +19,62 @@ th {
 </style>
 <script>
 function check(){
-	var id=joinform.MEMBER_ID.value;
-	var password1=joinform.MEMBER_PW.value;
-	var password2=joinform.MEMBER_PW2.value;	
-	var email=joinform.MEMBER_EMAIL1.value;
-	var addr1=joinform.MEMBER_ADDR1.value;
-	var addr2=joinform.MEMBER_ADDR2.value;
-	var mobile=joinform.MEMBER_MOBILE.value;
+	var id=joinform.id.value;
+	var password1=joinform.passwd.value;
+	var password2=joinform.passwd2.value;	
+	var email=joinform.email.value;
+	var addr1=joinform.addr1.value;
+	var addr2=joinform.addr2.value;
+	var ph1=joinform.ph1.value;
+	var ph2=joinform.ph2.value;
+	var ph3=joinform.ph3.value;
 	
 	var forms = document.getElementById("joinform");
 	if(id.length == 0){
 		alert("아이디를 입력하세요.");
-		joinform.MEMBER_ID.focus();
+		joinform.id.focus();
 		return false;
 	}
 	if(password1.length == 0){
 		alert("비밀번호를 입력하세요.");
-		joinform.MEMBER_PW.focus();
+		joinform.passwd.focus();
 		return false;
 	} 
 	if(password1 != password2){
 		alert("비밀번호가 일치하지 않습니다.");
-		joinform.MEMBER_PW.value="";
-		joinform.MEMBER_PW2.value="";
-		joinform.MEMBER_PW.focus();
+		joinform.passwd.value="";
+		joinform.passwd2.value="";
+		joinform.passwd2.focus();
 		return false;
 	}
 	if(email1.length == 0){
 		alert("이메일을 제대로 입력하세요.");
-		joinform.MEMBER_EMAIL1.focus();
+		joinform.email.focus();
 		return false;
 	}
 	if((forms.MEMBER_ZIPCODE1.value=="")||(forms.MEMBER_ZIPCODE1.value.length<3)){
 		alert("우편번호 앞의 3자리를 입력해 주세요.");
-      	forms.MEMBER_ZIPCODE1.focus();
+      	forms.zipcode1.focus();
         return false;
  	}
  	if((forms.MEMBER_ZIPCODE2.value=="")||(forms.MEMBER_ZIPCODE2.value.length<3)){
 		alert("우편번호 뒤의 3자리 입력해 주세요.");
-      	forms.MEMBER_ZIPCODE2.focus();
+      	forms.zipcode2.focus();
         return false;
 	}  
 	if(addr1.length == 0){
 		alert("집 주소를 입력하세요.");
-		joinform.MEMBER_ADDR1.focus();
+		joinform.addr1.focus();
 		return false;
 	} 
 	if(addr2.length == 0){
 		alert("상세 주소를 입력하세요.");
-		joinform.MEMBER_ADDR2.focus();
+		joinform.addr2.focus();
 		return false;
 	} 
 	if(ph1.length == 0||ph2.length == 0||ph3.length == 0){
 		alert("연락처를 입력하세요.");
-		joinform.MEMBER_MOBILE.focus();
+		joinform.ph1.focus();
 		return false;
 	}
 	
@@ -80,12 +82,12 @@ function check(){
 }
 
 function openConfirmId(joinform){			
-	var id=joinform.MEMBER_ID.value;
-	var url="MemberIDCheckAction.me?MEMBER_ID="+joinform.MEMBER_ID.value;
+	var id=joinform.id.value;
+	var url="memberIDConfirm.me?id="+joinform.id.value;
 	
 	if(id.length == 0){
 		alert("아이디를 입력하세요.");
-		joinform.MEMBER_ID.focus();
+		joinform.id.focus();
 		return false;
 	}
 	open(url, "confirm", "toolbar=no,location=no,status=no,menubar=no,"+
@@ -130,14 +132,14 @@ function gNumCheck(){
 								<tr>
 									<th style="width: 200px;">이름</th>
 									<td><input type="text" name="name" class="box"
-										value="${my name}" readonly></td>
+										value="${name}" readonly></td>
 								</tr>
 								<tr>
 									<th>주민번호</th>
 									<td><input type="text" name="ssn1" class="box"
-										maxlength="6" readonly value="${my ssn1}"> - <input
+										maxlength="6" readonly value="${ssn1}"> - <input
 										type="password" name="ssn2" class="box" maxlength="7"
-										value="${my ssn2}" readonly></td>
+										value="${ssn2}" readonly></td>
 								</tr>
 								<tr>
 									<th>아이디</th>

@@ -34,29 +34,36 @@ public class memberMapper {
 		return res;
 	}
 	
-	public static List<memberDTO> checkMember(memberDTO dto){
+	public static int checkMember(memberDTO dto){
 		SqlSession session = sqlMapper.openSession();
-		List<memberDTO> list=session.selectList("checkMember",dto);
+		int count=session.selectOne("checkMember",dto);
 		session.commit();
 		session.close();
-		return list;
+		return count;
 	}
 	
-	public static String loginMember(String id){
+	public static memberDTO loginMember(String id){
 		SqlSession session = sqlMapper.openSession();
-		String passwd =session.selectOne("loginMember",id);
+		memberDTO dto =(memberDTO)session.selectOne("loginMember",id);
 		session.commit();
 		session.close();
-		return passwd;
+		if(dto!=null){
+		return dto;
+		}else{
+			dto.setId("");
+			dto.setPasswd("");
+			return dto;
+		}
 	}
 	
-	public static boolean confirmId(String id){
+	public static String confirmId(String id){
 
 		SqlSession session = sqlMapper.openSession();
-		boolean res=((String) session.selectOne("confirmId",id)).isEmpty();
+		String confirmId=(String)session.selectOne("confirmId",id);
 		session.commit();
 		session.close();
-		return !res;
+		return confirmId;
+		
 	}
 	
 	public static memberDTO getMember(String id){
@@ -82,10 +89,10 @@ public class memberMapper {
 	
 	public static int isAdmin(String id){
 		SqlSession session=sqlMapper.openSession();
-		int res= session.selectOne("isAdmin",id);
+		int member_admin=(Integer) session.selectOne("isAdmin",id);
 		session.commit();
 		session.close();
-		return res;
+		return member_admin;
 	}
 	
 	public static List<zipcodeDTO> searchZipcode(String dong){

@@ -14,6 +14,32 @@
       text-align: center;
     }
   </style>
+  <script type="text/javascript">
+
+	function check() {
+		if (checkform.name.value == "") {
+			alert("이름을 입력하세요!!");
+			f.name.focus();
+			return;
+		}
+		if (checkform.ssn1.value=="") {
+			alert("주민번호를 입력하세요!!");
+			f.ssn1.focus();
+			return;
+		}
+		if (checkform.ssn2.value=="") {
+			alert("주민번호를 입력하세요!!");
+			f.ssn2.focus();
+			return;
+		}
+		
+		document.checkform.submit();
+	}
+	
+
+	
+</script>
+  
 </head>
 
 <body>
@@ -22,7 +48,7 @@
       <div class="row">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-          <img class="img-fluid d-block" src="E:\포트폴리오 리눅스+jsp+톰캣+오라클\새 폴더\0002.jpg"> </div>
+          <img class="img-fluid d-block" src="img/0002.jpg"> </div>
         <div class="col-md-4"></div>
       </div>
       <div class="row">
@@ -31,7 +57,7 @@
           <hr color="green" width="300">
           <h2>회 원 가 입 유 무</h2>
           <hr color="green" width="300">
-          <form name="check" action="memberCheckOk.me" method="post">
+          <form name="checkform" action="memberCheck.me" method="post">
             <table class="table">
               <tbody>
                 <tr>
@@ -47,8 +73,8 @@
                 </tr>
                 <tr>
                   <td colspan="2" align="center">
-                    <input type="submit" value="조회">
-                    <input type="button" onclick="windows.location='index.me'" value="취소"> </td>
+                    <a href="javascript:check()" class="btn btn-default">조회</a>
+                    <a href="index.me" class="btn btn-default">취소</a> </td>
                 </tr>
               </tbody>
             </table>

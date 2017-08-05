@@ -127,7 +127,7 @@
                 <td>dto.getQty() %&gt;</td>
               </tr>
               <tr align="center">
-                <td colspan="4"> <b>총가격:&nbsp; ${priceSUM}원</b>
+                <td colspan="4"> <b>총가격:&nbsp; priceSUM}원</b>
                   <br>
                   <br> 1002-014-740563 우리은행 이재규
                   <br>

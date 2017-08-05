@@ -2,8 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <% 
+	String member_admin="";
 	String id=(String)session.getAttribute("id");
-	String member_admin=(String)session.getAttribute("member_admin");
+	if((String)request.getAttribute("member_admin")!=null){
+		member_admin="true";
+	}
 %>
 <html>
 
@@ -17,19 +20,23 @@
 	href="https://pingendo.github.io/templates/blank/theme.css"
 	type="text/css">
 <script type="text/javascript">
+
 	function check() {
-		if (f.id.value == "") {
+		if (loginform.id.value == "") {
 			alert("아이디를 입력하세요!!");
 			f.id.focus();
 			return;
 		}
-		if (!f.passwd.value) {
+		if (loginform.passwd.value=="") {
 			alert("비밀번호를 입력하세요!!");
 			f.pwd.focus();
 			return;
 		}
-		document.f.submit();
+		document.loginform.submit();
 	}
+	
+
+	
 </script>
 
 </head>
@@ -50,8 +57,8 @@
 					</div>
 				</div>
 				<div class="col-md-6 bg-faded">
-					<c:choose>
-						<c:when test="${member_admin=='1'}">
+
+		<% if(member_admin.equals("true")){ %>
 						<br>
 							<br>
 							<div class="card">
@@ -67,8 +74,8 @@
 								<a href="memberLogout.me" class="btn btn-primary">Logout </a> 
 								<a href="#" class="btn btn-primary">관리자 페이지</a> 
 							</div>
-						</c:when>
-						<c:when test="${id}">
+		<% } else if(id!=null){ %>
+
 							<br>
 							<br>
 							<div class="card">
@@ -81,15 +88,16 @@
 							<br>
 							<br>
 							<div class="btn-group bg-inverse">
-								<a href="memberLogout.me" class="btn btn-primary">Logout </a> <a
+								<a href="memberLogin.me" class="btn btn-primary">Logout </a> <a
 									href="#" class="btn btn-primary">회원정보 수정</a> <a href="#"
 									class="btn btn-primary">장바구니</a> <a href="#"
 									class="btn btn-primary">주문 내역</a>
 							
 							</div>
-						</c:when>
-						<c:otherwise>
+		<%}else{ %>
+		
 							<form name="loginform" action="memberLogin.me" method="post">
+							<input type="hidden" name="login" value="login">
 								<p class="lead">LOGIN</p>
 								<div class="form-group">
 									<label>ID</label> <input type="text" class="form-control"
@@ -99,14 +107,14 @@
 									<label>Password</label> <input type="password"
 										class="form-control" name="passwd" placeholder="Password">
 								</div>
-								<button type="submit" class="btn btn-primary" id="login">Login</button>
+								<a href="javascript:check()" class="btn btn-primary" id="login">Login</a>
 								<div class="btn-group bg-inverse">
 									<!-- 로그인 안되어있을때 -->
-									<a href="#" class="btn btn-primary">회원가입</a>
+									<a href="memberCheck.me" class="btn btn-primary">회원가입</a>
 								</div>
 							</form>
-						</c:otherwise>
-					</c:choose>
+		<%} %>
+
 				</div>
 			</div>
 			<div class="row">

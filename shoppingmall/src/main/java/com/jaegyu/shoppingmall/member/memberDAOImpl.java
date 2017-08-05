@@ -14,23 +14,21 @@ public class memberDAOImpl implements memberDAO {
 	}
 
 	@Override
-	public boolean checkMember(memberDTO dto) {
-		 
-		List<memberDTO> list= memberMapper.checkMember(dto);
-		if(list==null) return true;
-		else return false;
+	public int checkMember(memberDTO dto) {
+		int count=memberMapper.checkMember(dto);
+		
+		return count;
 	}
 
 		
 	@Override
-	public boolean loginMember(String id, String passwd) {
-		if(passwd.equals(memberMapper.loginMember(id))) return true;
-		else return false;
+	public memberDTO loginMember(String id) {
 		
+		return memberMapper.loginMember(id);
 	}
 
 	@Override
-	public boolean confirmId(String id) {
+	public String confirmId(String id) {
 		return memberMapper.confirmId(id);
 
 	}
@@ -50,7 +48,7 @@ public class memberDAOImpl implements memberDAO {
 	@Override
 	public boolean deleteMember(String id, String passwd) {
 		
-		if(loginMember(id,passwd)){
+		if(loginMember(id).getPasswd().equals(passwd)){
 			memberMapper.deleteMember(id);
 			return true;
 		} else{
@@ -63,7 +61,7 @@ public class memberDAOImpl implements memberDAO {
 	@Override
 	public boolean isAdmin(String id) {
 		 int num=memberMapper.isAdmin(id);
-		 if(num>0)return true;
+		 if(num==1)return true;
 		 else return false;
 	}
 
