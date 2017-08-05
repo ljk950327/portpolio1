@@ -1,0 +1,4 @@
+create table cart(
+goodsname varchar2(40) references goods(goodsname);
+buyer varchar2(20) references member(id)
+);

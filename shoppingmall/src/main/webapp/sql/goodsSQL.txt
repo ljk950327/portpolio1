@@ -1,0 +1,6 @@
+create table goods(
+goodsname varchar2(40) primary key,
+price number not null,
+content varchar2(80),
+imgsrc varchar2(200)
+);

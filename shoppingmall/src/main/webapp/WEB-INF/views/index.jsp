@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<% 
+	String id=(String)session.getAttribute("id");
+	String member_admin=(String)session.getAttribute("member_admin");
+%>
 <html>
 
 <head>
@@ -47,7 +51,24 @@
 				</div>
 				<div class="col-md-6 bg-faded">
 					<c:choose>
-						<c:when test="${loginSession}">
+						<c:when test="${member_admin=='1'}">
+						<br>
+							<br>
+							<div class="card">
+								<div class="card-block">
+									<h4>관리자님</h4>
+									<br>
+									<p>환영합니다. 오늘도 좋은하루 보내세요.</p>
+								</div>
+							</div>
+							<br>
+							<br>
+							<div class="btn-group bg-inverse">
+								<a href="memberLogout.me" class="btn btn-primary">Logout </a> 
+								<a href="#" class="btn btn-primary">관리자 페이지</a> 
+							</div>
+						</c:when>
+						<c:when test="${id}">
 							<br>
 							<br>
 							<div class="card">
@@ -64,13 +85,14 @@
 									href="#" class="btn btn-primary">회원정보 수정</a> <a href="#"
 									class="btn btn-primary">장바구니</a> <a href="#"
 									class="btn btn-primary">주문 내역</a>
+							
 							</div>
 						</c:when>
 						<c:otherwise>
 							<form name="loginform" action="memberLogin.me" method="post">
 								<p class="lead">LOGIN</p>
 								<div class="form-group">
-									<label>ID</label> <input type="email" class="form-control"
+									<label>ID</label> <input type="text" class="form-control"
 										name="id" placeholder="Enter Id">
 								</div>
 								<div class="form-group">

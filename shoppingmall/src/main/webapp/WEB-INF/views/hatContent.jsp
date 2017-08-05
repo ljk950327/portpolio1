@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <html>
 
@@ -32,21 +32,64 @@
           </div>
         </div>
         <div class="col-md-6 bg-faded">
-          <form class="">
-            <p class="lead">LOGIN </p>
-            <div class="form-group"> <label>ID</label>
-              <input type="email" class="form-control" placeholder="Enter Id"> </div>
-            <div class="form-group"> <label>Password</label>
-              <input type="password" class="form-control" placeholder="Password"> </div>
-            <button type="submit" class="btn btn-primary" id="login">Login</button>
-            <button type="submit" class="btn btn-primary" id="logout">Logout</button>
-            <div class="btn-group bg-inverse">
-              <a href="#" class="btn btn-primary">회원정보 수정</a>
-              <a href="#" class="btn btn-primary">장바구니</a>
-              <a href="#" class="btn btn-primary">주문 내역</a>
-            </div>
-          </form>
-        </div>
+					<c:choose>
+						<c:when test="${member_admin==1}">
+						<br>
+							<br>
+							<div class="card">
+								<div class="card-block">
+									<h4>관리자님</h4>
+									<br>
+									<p>환영합니다. 오늘도 좋은하루 보내세요.</p>
+								</div>
+							</div>
+							<br>
+							<br>
+							<div class="btn-group bg-inverse">
+								<a href="memberLogout.me" class="btn btn-primary">Logout </a> 
+								<a href="#" class="btn btn-primary">관리자 페이지</a> 
+							</div>
+						</c:when>
+						<c:when test="${loginSession}">
+							<br>
+							<br>
+							<div class="card">
+								<div class="card-block">
+									<h4>${id}님</h4>
+									<br>
+									<p>환영합니다. 오늘도 좋은하루 보내세요.</p>
+								</div>
+							</div>
+							<br>
+							<br>
+							<div class="btn-group bg-inverse">
+								<a href="memberLogout.me" class="btn btn-primary">Logout </a> <a
+									href="#" class="btn btn-primary">회원정보 수정</a> <a href="#"
+									class="btn btn-primary">장바구니</a> <a href="#"
+									class="btn btn-primary">주문 내역</a>
+							
+							</div>
+						</c:when>
+						<c:otherwise>
+							<form name="loginform" action="memberLogin.me" method="post">
+								<p class="lead">LOGIN</p>
+								<div class="form-group">
+									<label>ID</label> <input type="email" class="form-control"
+										name="id" placeholder="Enter Id">
+								</div>
+								<div class="form-group">
+									<label>Password</label> <input type="password"
+										class="form-control" name="passwd" placeholder="Password">
+								</div>
+								<button type="submit" class="btn btn-primary" id="login">Login</button>
+								<div class="btn-group bg-inverse">
+									<!-- 로그인 안되어있을때 -->
+									<a href="#" class="btn btn-primary">회원가입</a>
+								</div>
+							</form>
+						</c:otherwise>
+					</c:choose>
+				</div>
       </div>
       <div class="row">
         <div class="col-md-12">

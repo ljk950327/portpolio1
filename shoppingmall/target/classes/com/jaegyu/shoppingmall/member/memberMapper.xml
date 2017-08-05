@@ -4,7 +4,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com/jaegyu/shoppingmall/member/memberMapper">
+<mapper namespace="com.jaegyu.shoppingmall.member.memberMapper">
 
 	<insert id="insertMember" parameterType="memberDTO"> insert into
 		member values(#{id},#{passwd}#{name},#{ssn1},#{ssn2},#{email},
@@ -34,3 +34,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	select * from zipcode where dong like %#{dong}%
   </select>
 </mapper>
+

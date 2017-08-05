@@ -19,9 +19,9 @@ public class qnaDAOImpl implements qnaDAO {
 	@Override
 	public int insertqna(qnaDTO dto) {
 		String sql=null;
-		if(dto.getNum()==0){	//새글
+		if(dto.getNum()==0){	
 			sql="update board set re_step=re_step+1";
-		} else{	//답글
+		} else{	
 			sql="update board set re_step=re_step+1 where re_step>"+dto.getRe_step();
 			dto.setRe_step(dto.getRe_step()+1);
 			dto.setRe_level(dto.getRe_level()+1);
