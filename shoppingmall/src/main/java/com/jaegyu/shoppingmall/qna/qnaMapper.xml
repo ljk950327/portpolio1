@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from qna order by re_step asc
 	</select>
 
-	<select id="getqna" parameterType="int" resultType="qnadDTO">
+	<select id="getqna" parameterType="int" resultType="qnaDTO">
 		select * from qna where num=#{num}
 	</select>
 
