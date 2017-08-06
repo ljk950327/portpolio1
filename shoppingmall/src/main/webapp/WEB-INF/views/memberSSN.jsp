@@ -19,24 +19,30 @@
 	function check() {
 		if (checkform.name.value == "") {
 			alert("이름을 입력하세요!!");
-			f.name.focus();
-			return;
+			checkform.name.focus();
+			return false;
 		}
 		if (checkform.ssn1.value=="") {
 			alert("주민번호를 입력하세요!!");
-			f.ssn1.focus();
-			return;
+			checkform.ssn1.focus();
+			return false;
 		}
 		if (checkform.ssn2.value=="") {
 			alert("주민번호를 입력하세요!!");
-			f.ssn2.focus();
-			return;
+			checkform.ssn2.focus();
+			return false;
 		}
 		
-		document.checkform.submit();
+		return true;
 	}
 	
-
+	function gNumCheck(){
+		if(event.keyCode >=48 && event.keyCode <=57) {
+			return true;
+		}else{
+			event.returnValue=false;	
+		}
+	}		
 	
 </script>
   
@@ -57,7 +63,7 @@
           <hr color="green" width="300">
           <h2>회 원 가 입 유 무</h2>
           <hr color="green" width="300">
-          <form name="checkform" action="memberCheck.me" method="post">
+          <form name="checkform" action="memberCheck.me" method="post" onsubmit="return check()">
             <table class="table">
               <tbody>
                 <tr>
@@ -68,13 +74,13 @@
                 <tr>
                   <th>주민번호</th>
                   <td>
-                    <input type="text" name="ssn1" class="box" maxlength="6"> -
-                    <input type="password" name="ssn2" class="box" maxlength="7"> </td>
+                    <input type="text" onkeypress="gNumCheck()" name="ssn1" class="box" maxlength="6"> -
+                    <input type="password" onkeypress="gNumCheck()" name="ssn2" class="box" maxlength="7"> </td>
                 </tr>
                 <tr>
                   <td colspan="2" align="center">
-                    <a href="javascript:check()" class="btn btn-default">조회</a>
-                    <a href="index.me" class="btn btn-default">취소</a> </td>
+                    <input type="submit" class="btn btn-default" value="조회" > 
+                    <input type="button" class="btn btn-default" value="취소" onclick="window.location.href='index.me'"> 
                 </tr>
               </tbody>
             </table>

@@ -30,7 +30,7 @@
           <hr color="green" width="300">
           <h2>회 원 탈 퇴</h2>
           <hr color="green" width="300">
-          <form name="check" action="memberCheckOk.me" method="post">
+          <form name="check" action="memberOut.me" method="post">
             <table class="table">
               <tbody>
                 <tr>
@@ -38,12 +38,12 @@
                 </tr>
                 <tr>
                   <td align="center">
-                    <input type="passwd" name="passwd" class="box"> </td>
+                    <input type="password" name="passwd" class="box"> </td>
                 </tr>
                 <tr>
                   <td colspan="2" align="center">
                     <input type="submit" value="탈퇴">
-                    <input type="button" onclick="windows.location='index.me'" value="취소"> </td>
+                    <input type="button" onclick="window.location='index.me'" value="취소"> </td>
                 </tr>
               </tbody>
             </table>

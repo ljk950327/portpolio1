@@ -52,6 +52,17 @@ public class zipcodeDTO {
 	}
 	@Override
 	public String toString() {
+		if(dong==null){
+			dong="";
+
+		}
+		if(ri==null){
+			ri="";
+			
+		}
+		if(bunji==null){
+			bunji="";
+		}
 		return zipcode+","+sido+" "+gugun+" "+dong+" "+ri+" "+bunji ;
 	}
 	

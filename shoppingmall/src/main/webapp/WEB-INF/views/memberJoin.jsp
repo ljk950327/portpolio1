@@ -20,8 +20,8 @@ th {
 <script>
 function check(){
 	var id=joinform.id.value;
-	var password1=joinform.passwd.value;
-	var password2=joinform.passwd2.value;	
+	var passwd1=joinform.passwd1.value;
+	var passwd2=joinform.passwd2.value;	
 	var email=joinform.email.value;
 	var addr1=joinform.addr1.value;
 	var addr2=joinform.addr2.value;
@@ -35,29 +35,29 @@ function check(){
 		joinform.id.focus();
 		return false;
 	}
-	if(password1.length == 0){
+	if(passwd1.length == 0){
 		alert("비밀번호를 입력하세요.");
-		joinform.passwd.focus();
+		joinform.passwd1.focus();
 		return false;
 	} 
-	if(password1 != password2){
+	if(passwd1 != passwd2){
 		alert("비밀번호가 일치하지 않습니다.");
-		joinform.passwd.value="";
+
 		joinform.passwd2.value="";
 		joinform.passwd2.focus();
 		return false;
 	}
-	if(email1.length == 0){
+	if(email.length == 0){
 		alert("이메일을 제대로 입력하세요.");
 		joinform.email.focus();
 		return false;
 	}
-	if((forms.MEMBER_ZIPCODE1.value=="")||(forms.MEMBER_ZIPCODE1.value.length<3)){
+	if((forms.zipcode1.value=="")||(forms.zipcode1.value.length<3)){
 		alert("우편번호 앞의 3자리를 입력해 주세요.");
       	forms.zipcode1.focus();
         return false;
  	}
- 	if((forms.MEMBER_ZIPCODE2.value=="")||(forms.MEMBER_ZIPCODE2.value.length<3)){
+ 	if((forms.zipcode2.value=="")||(forms.zipcode2.value.length<3)){
 		alert("우편번호 뒤의 3자리 입력해 주세요.");
       	forms.zipcode2.focus();
         return false;
@@ -95,7 +95,7 @@ function openConfirmId(joinform){
 }
 
 function openZipcode(joinform){			
-	var url="Zipcode.me"
+	var url="zipcode.me"
 	open(url, "confirm", "toolbar=no,location=no,"
 						+"status=no,menubar=no,"
 						+"scrollbars=yes,resizable=no,"
@@ -126,7 +126,7 @@ function gNumCheck(){
 					<hr color="green" width="300">
 					<h2>회 원 가 입&nbsp;</h2>
 					<hr color="green" width="300">
-					<form name="joinform" action="memberCheckOk.me" method="post">
+					<form name="joinform" action="memberJoin.me" method="post" onsubmit="return check()">
 						<table class="table">
 							<tbody>
 								<tr>
@@ -165,11 +165,13 @@ function gNumCheck(){
 								</tr>
 								<tr>
 									<th>우편번호</th>
-									<td class="m3"><input type="text" name="zipcode1" size="6"
-										onkeypress="gNumCheck()" mexlength="3" />- <input type="text"
-										name="zipcode2" size="6" onkeypress="gNumCheck()"
-										mexlength="3" /> &nbsp;&nbsp; <input type="button"
-										class="btn btn-default" name="zipcode" value="우편번호 검색"
+									<td class="m3">
+									<input type="text" name="zipcode1" size="6"
+										onkeypress="gNumCheck()" mexlength="3" />
+										- 
+										<input type="text" name="zipcode2" size="6" onkeypress="gNumCheck()" mexlength="3" /> 
+										&nbsp;&nbsp; 
+										<input type="button" class="btn btn-default" name="zipcode.me" value="우편번호 검색"
 										onclick="openZipcode(this.form)" /></td>
 								</tr>
 								<tr>
@@ -185,15 +187,17 @@ function gNumCheck(){
 
 								<tr>
 									<th>연락처</th>
-									<td class="m3"><input type="text" name="hp1" class="box"
+									<td class="m3"><input type="text" name="ph1" class="box"
 										size="3" maxlength="3"> - <input type="text"
-										name="hp2" class="box" size="4" maxlength="4"> - <input
-										type="text" name="hp3" class="box" size="4" maxlength="4">
+										name="ph2" class="box" size="4" maxlength="4"> - <input
+										type="text" name="ph3" class="box" size="4" maxlength="4">
 									</td>
 								</tr>
 								<tr>
-									<td colspan="2" align="center"><input type="submit" class="btn btn-default"
-										value="회원가입"> <input type="button" class="btn btn-default" onclick="windows.location='index.me'" value="취소">
+									<td colspan="2" align="center">
+									<input type="submit"
+										class="btn btn-default" value="회원정보 수정"> 
+									<input type="button" class="btn btn-default" value="취소" onclick="window.location.href='index.me'"> 
 									</td>
 								</tr>
 							</tbody>

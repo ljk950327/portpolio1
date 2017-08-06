@@ -1,7 +1,5 @@
 package com.jaegyu.shoppingmall.member;
 
-import java.sql.Timestamp;
-
 public class memberDTO {
 	private String id;
 	private String passwd;
@@ -16,11 +14,11 @@ public class memberDTO {
 	private String addr1;
 	private String addr2;
 	private int member_admin;
-	private Timestamp member_join_date;
-	public Timestamp getMember_join_date() {
+	private String member_join_date;
+	public String getMember_join_date() {
 		return member_join_date;
 	}
-	public void setMember_join_date(Timestamp member_join_date) {
+	public void setMember_join_date(String member_join_date) {
 		this.member_join_date = member_join_date;
 	}
 	public String getId() {

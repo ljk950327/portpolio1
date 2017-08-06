@@ -27,7 +27,7 @@ function setZipcode(zip1,zip2,addr){
 		</td>
 	</tr>
 </table>
-<form action="MemberZipcodefind.me" method="post" name="form">
+<form action="zipcode.me" method="post" name="form">
 <table width="370" border="0" cellspacing="0" cellpadding="5">
 	<tr align="center">
 		<td align="center">
@@ -58,11 +58,11 @@ function setZipcode(zip1,zip2,addr){
 %>
 <tr>
 	<td width="20%">
-	<a href="#"	onclick="setZipcode(${zip1},${zip2},'${addr}')">
-		<font size="2">${zipcode}</font>
+	<a href="#"	onclick="setZipcode('<%=zip1 %>','<%=zip2 %>','<%=addr %>')">
+		<font size="2"><%=zipcode %></font>
 	</a>
 	</td>
-	<td width="80%"><font size="2">${addr}</font></td>
+	<td width="80%"><font size="2"><%=addr %></font></td>
 </tr>
 <%		}
 	}else{ %>

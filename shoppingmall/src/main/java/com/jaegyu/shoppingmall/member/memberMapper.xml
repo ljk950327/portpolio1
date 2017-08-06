@@ -7,8 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.jaegyu.shoppingmall.member.memberMapper">
 
 	<insert id="insertMember" parameterType="memberDTO"> insert into
-		member values(#{id},#{passwd}#{name},#{ssn1},#{ssn2},#{email},
-		#{ph1},#{ph2},#{ph3},#{zipcode},#{addr1},#{addr2},#{member_admin},#{member_join_date}) </insert>
+		member values(#{id},#{passwd},#{name},#{ssn1},#{ssn2},#{email},#{ph1},#{ph2},#{ph3},#{zipcode},#{addr1},#{addr2},#{member_admin},sysdate) </insert>
 	<select id="checkMember" parameterType="memberDTO" resultType="int"> 
 		select count(*) from member where ssn1=#{ssn1} and ssn2=#{ssn2}
 	</select>
@@ -22,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     select * from member where id = #{id}
   </select>
   <update id="updateMember" parameterType="memberDTO">
-    update member set passwd=#{passwd}, email=#{email}, ph1=#{ph1}, ph2=#{ph2}, ph3=#{ph3}, zipcode=#{zipcode} addr1=#{addr1} addr2=#{addr2} where id=#{id}
+    update member set name=#{name}, passwd=#{passwd}, email=#{email}, ph1=#{ph1}, ph2=#{ph2}, ph3=#{ph3}, zipcode=#{zipcode} addr1=#{addr1} addr2=#{addr2} where id=#{id}
   </update>
   <delete id="deleteMember" parameterType="String">
   	delete from member where id=#{id}
@@ -31,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	select member_admin from member where id=#{id}
   </select>
   <select id="searchZipcode" parameterType="String" resultType="zipcodeDTO">
-  	select * from zipcode where dong like %#{dong}%
+  	select * from zipcode where dong like #{dong}
   </select>
 </mapper>
 

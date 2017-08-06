@@ -27,74 +27,77 @@ public class shopController {
 	private memberDAO memberDAO;
 	@Autowired
 	private qnaDAO qnaDAO;
-	
+
 	@RequestMapping(value = "index.me", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-				
+
 		return "index";
 	}
-	
-	@RequestMapping(value="memberLogin.me")
-	public ModelAndView loginMember(HttpServletRequest arg0, HttpServletResponse arg1) 
-			throws Exception {
+
+	@RequestMapping(value = "memberLogin.me")
+	public ModelAndView loginMember(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
 		HttpSession session = arg0.getSession();
 		ModelAndView mav = new ModelAndView();
-		String id=arg0.getParameter("id");
-		String passwd=arg0.getParameter("passwd");
-		String login=arg0.getParameter("login");
+		String id = arg0.getParameter("id");
+		String passwd = arg0.getParameter("passwd");
+		String login = arg0.getParameter("login");
 		
-		if(login!=null){
-		if(memberDAO.loginMember(id).getId().equals(id)&&memberDAO.loginMember(id).getPasswd().equals(passwd)){
-			
-			session.setAttribute("id", id);
-			if(memberDAO.isAdmin(id)){
-				mav.addObject("member_admin","true");
 
-			}else{
-				mav.addObject("member_admin","false");
+		if (login != null) {
+			memberDTO dto = memberDAO.loginMember(id);
+			if (dto == null) {
+				mav.addObject("msg", "로그인에 실패했습니다.");
+				mav.addObject("url", "index.me");
+				mav.setViewName("message");
+				return mav;
 			}
+			if (dto.getId().equals(id) && dto.getPasswd().equals(passwd)) {
 
-		} else{
-			mav.addObject("msg","로그인에 실패했습니다.");
-			mav.addObject("url","index.me");
-			mav.setViewName("message");
-			return mav;
-		}
-		}else{
+				session.setAttribute("id", id);
+				if (memberDAO.isAdmin(id)) {
+					mav.addObject("member_admin", "true");
+
+				}
+
+			} else {
+				mav.addObject("msg", "로그인에 실패했습니다.");
+				mav.addObject("url", "index.me");
+				mav.setViewName("message");
+				return mav;
+			}
+		} else {
 			session.invalidate();
-			mav.addObject("msg","로그아웃");
-			mav.addObject("url","index.me");
+			mav.addObject("msg", "로그아웃");
+			mav.addObject("url", "index.me");
 			mav.setViewName("message");
 			return mav;
 		}
-		
+
 		mav.setViewName("index");
 		return mav;
 	}
-	
-	@RequestMapping(value="memberCheck.me", method=RequestMethod.GET)
-	public ModelAndView checkMember(HttpServletRequest arg0, HttpServletResponse arg1) 
-			throws Exception {
-		
+
+	@RequestMapping(value = "memberCheck.me", method = RequestMethod.GET)
+	public ModelAndView checkMember(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
+
 		return new ModelAndView("memberSSN");
 	}
-	
-	@RequestMapping(value="memberCheck.me", method=RequestMethod.POST)
-	public ModelAndView checkMemberPro(HttpServletRequest arg0, HttpServletResponse arg1) 
-			throws Exception {
-		ModelAndView mav=new ModelAndView();
-		String name=arg0.getParameter("name");
-		int ssn1 =ServletRequestUtils.getIntParameter(arg0, "ssn1");
-		int ssn2 =ServletRequestUtils.getIntParameter(arg0, "ssn2");
+
+	@RequestMapping(value = "memberCheck.me", method = RequestMethod.POST)
+	public ModelAndView checkMemberPro(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		String name = arg0.getParameter("name");
+		int ssn1 = ServletRequestUtils.getIntParameter(arg0, "ssn1");
+		int ssn2 = ServletRequestUtils.getIntParameter(arg0, "ssn2");
 		memberDTO dto = new memberDTO();
 		dto.setSsn1(ssn1);
 		dto.setSsn2(ssn2);
-		
-		if(memberDAO.checkMember(dto)>0){
+
+		if (memberDAO.checkMember(dto) > 0) {
 			String msg = "사용하고 있는 주민번호입니다. 로그인을 해주세요.";
 			String url = "index.me";
-			mav.addObject("msg",msg);
-			mav.addObject("url",url);
+			mav.addObject("msg", msg);
+			mav.addObject("url", url);
 			mav.setViewName("message");
 			return mav;
 		}
@@ -103,33 +106,135 @@ public class shopController {
 		mav.addObject("ssn2", ssn2);
 		mav.setViewName("memberJoin");
 		return mav;
-		
+
 	}
-	
-	@RequestMapping(value="memberIDConfirm.me")
-	public ModelAndView confirmID(HttpServletRequest arg0, HttpServletResponse arg1) 
-			throws Exception {
-		ModelAndView mav=new ModelAndView();
+
+	@RequestMapping(value = "memberIDConfirm.me")
+	public ModelAndView confirmID(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
+		ModelAndView mav = new ModelAndView();
 		String id = arg0.getParameter("id");
-		String cid=memberDAO.confirmId(id);
-		
-		mav.addObject("id",id);
-		mav.addObject("cid",cid);
+		String cid = memberDAO.confirmId(id);
+
+		mav.addObject("id", id);
+		mav.addObject("cid", cid);
 		mav.setViewName("member_idchk");
 		return mav;
 	}
-	
-	@RequestMapping(value="zipcode.me", method=RequestMethod.GET)
-	public ModelAndView zipcodeID(HttpServletRequest arg0, HttpServletResponse arg1) 
-			throws Exception {
-		ModelAndView mav=new ModelAndView();
+
+	@RequestMapping(value = "zipcode.me")
+	public ModelAndView zipcodeID(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
+		ModelAndView mav = new ModelAndView();
 		String dong = arg0.getParameter("dong");
-		List<zipcodeDTO> list=memberMapper.searchZipcode(dong);
-		
+		List<zipcodeDTO> list = memberMapper.searchZipcode(dong);
+
 		mav.addObject("list", list);
 		mav.setViewName("member_zipcode");
 		return mav;
 	}
+
+	@RequestMapping(value = "memberJoin.me")
+	public ModelAndView joinMember(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		memberDTO dto = new memberDTO();
+		dto.setId(arg0.getParameter("id"));
+		dto.setPasswd(arg0.getParameter("passwd1"));
+		dto.setName(arg0.getParameter("name"));
+		dto.setSsn1(ServletRequestUtils.getIntParameter(arg0, "ssn1"));
+		dto.setSsn2(ServletRequestUtils.getIntParameter(arg0, "ssn2"));
+		dto.setEmail(arg0.getParameter("email"));
+		dto.setPh1(arg0.getParameter("ph1"));
+		dto.setPh2(arg0.getParameter("ph2"));
+		dto.setPh3(arg0.getParameter("ph3"));
+		dto.setZipcode(arg0.getParameter("zipcode1") + " - " + arg0.getParameter("zipcode2"));
+		dto.setAddr1(arg0.getParameter("addr1"));
+		dto.setAddr2(arg0.getParameter("addr2"));
+		dto.setMember_admin(0);
+		if (!memberDAO.insertMember(dto)) {
+			mav.addObject("msg", "회원가입에 실패했습니다.");
+			mav.addObject("url", "index.me");
+			mav.setViewName("message");
+			return mav;
+		}
+
+		mav.addObject("msg", "회원가입에 성공했습니다.");
+		mav.addObject("url", "index.me");
+		mav.setViewName("message");
+		return mav;
+	}
+
+	@RequestMapping(value = "memberModify.me", method = RequestMethod.GET)
+	public ModelAndView modifyMember(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = arg0.getSession();
+		String id = (String) session.getAttribute("id");
+		memberDTO dto = memberDAO.getMember(id);
+
+		mav.addObject("memberDTO", dto);
+		mav.setViewName("memberModify");
+		return mav;
+	}
+
+	@RequestMapping(value = "memberModify.me", method = RequestMethod.POST)
+	public ModelAndView modifyMemberPro(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
+		HttpSession session = arg0.getSession();
+		String id = (String) session.getAttribute("id");
+		ModelAndView mav = new ModelAndView();
+		memberDTO dto = new memberDTO();
+		dto.setId(id);
+		dto.setPasswd(arg0.getParameter("passwd1"));
+		dto.setName(arg0.getParameter("name"));
+		dto.setEmail(arg0.getParameter("email"));
+		dto.setPh1(arg0.getParameter("ph1"));
+		dto.setPh2(arg0.getParameter("ph2"));
+		dto.setPh3(arg0.getParameter("ph3"));
+		dto.setZipcode(arg0.getParameter("zipcode1") + " - " + arg0.getParameter("zipcode2"));
+		dto.setAddr1(arg0.getParameter("addr1"));
+		dto.setAddr2(arg0.getParameter("addr2"));
+
+		if (!memberDAO.updateMember(dto)) {
+			mav.addObject("msg", "정보수정에 실패했습니다.");
+			mav.addObject("url", "index.me");
+			mav.setViewName("message");
+			return mav;
+		}
+
+		mav.addObject("msg", "정보수정에 성공했습니다.");
+		mav.addObject("url", "index.me");
+		mav.setViewName("message");
+		return mav;
+	}
+
+	@RequestMapping(value = "memberOut.me", method = RequestMethod.GET)
+	public ModelAndView deleteMember(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
+
+		return new ModelAndView("memberDelete");
+	}
+
+	@RequestMapping(value = "memberOut.me", method = RequestMethod.POST)
+	public ModelAndView deleteMemberPro(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = arg0.getSession();
+		String id = (String) session.getAttribute("id");
+		String passwd = memberDAO.loginMember(id).getPasswd();
+
+		if (!memberDAO.deleteMember(id, passwd)) {
+			mav.addObject("msg", "회원탈퇴에 실패했습니다.");
+			mav.addObject("url", "memberModify.me");
+			mav.setViewName("message");
+			return mav;
+		}
+		session.invalidate();
+		mav.addObject("msg", "회원탈퇴에 성공했습니다.");
+		mav.addObject("url", "index.me");
+		mav.setViewName("message");
+		return mav;
+	}
 	
+	@RequestMapping(value = "hatlist.me")
+	public ModelAndView HatList(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		return mav;
+	}
+
 	
 }

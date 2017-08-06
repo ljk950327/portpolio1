@@ -8,9 +8,12 @@ public class memberDAOImpl implements memberDAO {
 
 	@Override
 	public boolean insertMember(memberDTO dto) {
-		int num=memberMapper.insertMember(dto);
-		if(num>0) return true;
-		else return false;
+		int num= memberMapper.insertMember(dto);
+		if(num>0){
+			return true;
+		} else{
+			return false;
+		}
 	}
 
 	@Override
@@ -40,9 +43,13 @@ public class memberDAOImpl implements memberDAO {
 	}
 
 	@Override
-	public void updateMember(memberDTO dto) {
+	public boolean updateMember(memberDTO dto) {
 		 
-		memberMapper.updateMember(dto);
+		if(memberMapper.updateMember(dto)>0){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	@Override

@@ -28,7 +28,7 @@ public class memberMapper {
 	
 	public static int insertMember(memberDTO dto){
 		SqlSession session = sqlMapper.openSession();
-		int res= session.insert("insertMember",dto);
+		int res=session.insert("insertMember",dto);
 		session.commit();
 		session.close();
 		return res;
@@ -47,13 +47,7 @@ public class memberMapper {
 		memberDTO dto =(memberDTO)session.selectOne("loginMember",id);
 		session.commit();
 		session.close();
-		if(dto!=null){
 		return dto;
-		}else{
-			dto.setId("");
-			dto.setPasswd("");
-			return dto;
-		}
 	}
 	
 	public static String confirmId(String id){
@@ -97,7 +91,7 @@ public class memberMapper {
 	
 	public static List<zipcodeDTO> searchZipcode(String dong){
 		SqlSession session=sqlMapper.openSession();
-		List<zipcodeDTO> list=session.selectList("searchZipcode",dong);
+		List<zipcodeDTO> list=session.selectList("searchZipcode","%"+dong+"%");
 		session.commit();
 		session.close();
 		return list;

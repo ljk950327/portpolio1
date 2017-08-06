@@ -3,9 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%
-	memberDTO dto = (memberDTO) request.getAttribute("dto");
-	String[] zipcodes = dto.getZipcode().split("-"); //"-"로 구분함
+	memberDTO dto=(memberDTO)request.getAttribute("memberDTO");
+	String[] zipcodes = dto.getZipcode().split("-");
 %>
+
 
 <html>
 
@@ -25,9 +26,9 @@ th {
 </style>
 <script>
 	function check() {
-
-		var password1 = infoform.passwd1.value;
-		var password2 = infoform.passwd2.value;
+		var name=infoform.name.value;
+		var passwd1 = infoform.passwd1.value;
+		var passwd2 = infoform.passwd2.value;
 		var email = infoform.email.value;
 		var addr1 = infoform.addr1.value;
 		var addr2 = infoform.addr2.value;
@@ -39,55 +40,53 @@ th {
 
 		if ((forms.name.value == "") || (forms.name.value.length <= 1)) {
 			alert("이름을 입력하세요.");
-			forms.MEMBER_NAME.focus();
+			forms.name.focus();
 			return false;
 		}
-		if (password1.length == 0) {
+		if (passwd1.length == 0) {
 			alert("비밀번호를 입력하세요.");
-			infoform.MEMBER_PW.focus();
+			infoform.passwd1.focus();
 			return false;
 		}
-		if (password1 != password2) {
+		if (passwd1 != passwd2) {
 			alert("비밀번호가 일치하지 않습니다.");
-			infoform.MEMBER_PW.value = "";
-			infoform.MEMBER_PW2.value = "";
-			infoform.MEMBER_PW.focus();
+			infoform.passwd2.value = "";
+			infoform.passwd2.focus();
 			return false;
 		}
-		if (email1.length == 0) {
+		if(email.length == 0){
 			alert("이메일을 제대로 입력하세요.");
-			infoform.MEMBER_EMAIL1.focus();
+			joinform.email.focus();
 			return false;
 		}
-		if ((forms.MEMBER_ZIPCODE1.value == "")
-				|| (forms.MEMBER_ZIPCODE1.value.length < 3)) {
+		if((forms.zipcode1.value=="")||(forms.zipcode1.value.length<3)){
 			alert("우편번호 앞의 3자리를 입력해 주세요.");
-			forms.MEMBER_ZIPCODE1.focus();
-			return false;
-		}
-		if ((forms.MEMBER_ZIPCODE2.value == "")
-				|| (forms.MEMBER_ZIPCODE2.value.length < 3)) {
+	      	forms.zipcode1.focus();
+	        return false;
+	 	}
+	 	if((forms.zipcode2.value=="")||(forms.zipcode2.value.length<3)){
 			alert("우편번호 뒤의 3자리 입력해 주세요.");
-			forms.MEMBER_ZIPCODE2.focus();
-			return false;
-		}
-		if (addr1.length == 0) {
+	      	forms.zipcode2.focus();
+	        return false;
+		}  
+		if(addr1.length == 0){
 			alert("집 주소를 입력하세요.");
-			infoform.MEMBER_ADDR1.focus();
+			joinform.addr1.focus();
 			return false;
-		}
-		if (addr2.length == 0) {
+		} 
+		if(addr2.length == 0){
 			alert("상세 주소를 입력하세요.");
-			infoform.MEMBER_ADDR2.focus();
+			joinform.addr2.focus();
 			return false;
-		}
-		if (ph1.length == 0 || ph2.length == 0 || ph3.length == 0) {
+		} 
+		if(ph1.length == 0||ph2.length == 0||ph3.length == 0){
 			alert("연락처를 입력하세요.");
-			infoform.MEMBER_MOBILE.focus();
+			joinform.ph1.focus();
 			return false;
 		}
 
 		return true;
+
 	}
 
 	function openZipcode(infoform) {
@@ -104,14 +103,16 @@ th {
 			event.returnValue = false;
 		}
 	}
+	
 	function out(){
 		var Answer=confirm("회원탈퇴를 하시겠습니까?");
 		if(Answer == true){
-			location.href="/memberOut.me";
+			location.href="./memberOut.me";
 		}
 	}
 </script>
 <body onload="f.id.focus()">
+
 	<div class="py-5">
 		<div class="container">
 			<div class="row">
@@ -127,13 +128,14 @@ th {
 					<hr color="green" width="300">
 					<h2>회 원 가 입&nbsp;</h2>
 					<hr color="green" width="300">
-					<form name="infoform" action="memberModify.me" method="post">
+					<form name="infoform" action="memberModify.me" onsubmit="return check()" method="post">
 						<table class="table">
+						<c:set var="dto" value="<%=dto %>"></c:set>
 							<tbody>
 								<tr>
 									<th style="width: 200px;">이름</th>
 									<td><input type="text" name="name" class="box"
-										value="${dto.name}" readonly></td>
+										value="${dto.name}" ></td>
 								</tr>
 
 								<tr>
@@ -174,20 +176,22 @@ th {
 
 								<tr>
 									<th>연락처</th>
-									<td class="m3"><input type="text" name="hp1" class="box"
-										size="3" maxlength="3 value="${dto.hp1} "> - <input type="text"
-										name="hp2" class="box" size="4" maxlength="4" value="${dto.hp2 }"> - <input
-										type="text" name="hp3" class="box" size="4" maxlength="4" value="${dto.hp3 }">
+									<td class="m3"><input type="text" name="ph1" class="box"
+										size="3" maxlength="3" value="${dto.ph1}"> - <input type="text"
+										name="ph2" class="box" size="4" maxlength="4" value="${dto.ph2 }"> - <input
+										type="text" name="ph3" class="box" size="4" maxlength="4" value="${dto.ph3 }">
 									</td>
 								</tr>
 								<tr>
 									<td colspan="2" align="center"><input type="submit"
 										class="btn btn-default" value="회원정보 수정"> <input
 										type="button" class="btn btn-default"
-										onclick="windows.location='index.me'" value="취소"></td>
-										<input type="button" class="btn btn-default" value="회원탈퇴" name="bt" onclick="out">
+										onclick="window.location='index.me'" value="취소">
+										<input type="button" class="btn btn-default" value="회원탈퇴" name="bt" onclick="out();"></td>
+										
 								</tr>
 							</tbody>
+							
 						</table>
 					</form>
 				</div>

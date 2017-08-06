@@ -8,7 +8,7 @@ public interface memberDAO {
 	public memberDTO loginMember(String id);
 	public String confirmId(String id);
 	public memberDTO getMember(String id);
-	public void updateMember(memberDTO dto);
+	public boolean updateMember(memberDTO dto);
 	public boolean deleteMember(String id, String passwd);
 	public boolean isAdmin(String id);
 	public List searchZipcode(String dong);
