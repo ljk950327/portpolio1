@@ -9,7 +9,8 @@
 	</bean>
 	<bean id="qnaDAO" class="com.jaegyu.shoppingmall.qna.qnaDAOImpl">
 	</bean>
-		
+		<bean id="goodsDAO" class="com.jaegyu.shoppingmall.goods.goodsDAOImpl">
+	</bean>
 </beans>
 
 
