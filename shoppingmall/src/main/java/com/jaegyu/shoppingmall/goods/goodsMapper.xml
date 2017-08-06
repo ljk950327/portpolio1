@@ -7,19 +7,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.jaegyu.shoppingmall.goods.goodsMapper">
 
 	<select id="listgoods" resultType="goodsDTO">
-		select * from goods order by num asc
+		select * from goods order by
+		num desc
 	</select>
 
 	<select id="getgoods" parameterType="int" resultType="goodsDTO">
-		select * from goods where num=#{num}
+		select *
+		from goods where num=#{num}
 	</select>
-
+	<select id="getgoods" parameterType="int" resultType="int">
+		select
+		count(*) from goods
+	</select>
 	<insert id="insertgoods" parameterType="goodsDTO">
-		insert into goods values(goods_seq.nextval,#{goodsname},#{price},#{content},#{imgsrc})
+		insert into goods
+		values(goods_seq.nextval,#{goodsname},#{price},#{content},#{imgsrc})
 	</insert>
 
 	<delete id="deletegoods" parameterType="int">
-		delete from goods where num=#{num}
+		delete from goods where
+		num=#{num}
 	</delete>
 
 	<update id="updategoods" parameterType="goodsDTO">

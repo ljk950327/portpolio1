@@ -10,4 +10,5 @@ public interface goodsDAO {
 	public int insertGoods(goodsDTO dto);
 	public int deleteGoods(int num, String passwd);
 	public int updateGoods(goodsDTO dto);
+	public int getTotalGoods();
 }

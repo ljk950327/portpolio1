@@ -63,4 +63,11 @@ public class goodsMapper {
 		session.close();
 		return res;
 	}
+	
+	public static int getTotalGoods(){
+		SqlSession session=sqlMapper.openSession();
+		int count=session.selectOne("getTotalGoods");
+		session.close();
+		return count;
+	}
 }

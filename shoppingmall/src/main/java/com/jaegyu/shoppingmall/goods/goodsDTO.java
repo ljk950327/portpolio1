@@ -6,6 +6,14 @@ public class goodsDTO {
 	private String price;
 	private String content;
 	private String imgsrc;
+	private String gk; //hat과 accessory구별
+	
+	public String getGk() {
+		return gk;
+	}
+	public void setGk(String gk) {
+		this.gk = gk;
+	}
 	public int getNum() {
 		return num;
 	}

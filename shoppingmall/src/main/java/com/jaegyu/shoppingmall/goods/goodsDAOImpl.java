@@ -32,4 +32,11 @@ public class goodsDAOImpl implements goodsDAO {
 		return goodsMapper.updateGoods(dto);
 	}
 
+	@Override
+	public int getTotalGoods() {
+		
+		return goodsMapper.getTotalGoods();
+	}
+	
+	
 }

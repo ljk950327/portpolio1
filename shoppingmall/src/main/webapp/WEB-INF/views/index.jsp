@@ -6,11 +6,11 @@
 					<ul class="nav nav-tabs mr-auto">
 						<li class="nav-item"><a href="#" class="active nav-link"><i
 								class="fa fa-home fa-home"></i>&nbsp;Home </a></li>
-						<li class="nav-item"><a href="hatlist.me" class="nav-link">Hat</a>
+						<li class="nav-item"><a href="List.me?pg=1&gk=0" class="nav-link">Hat</a>
 						</li>
-						<li class="nav-item"><a class="nav-link" href="acclist.me">Accessory</a>
+						<li class="nav-item"><a class="nav-link" href="List.me?pg=1&gk=1">Accessory</a>
 						</li>
-						<li class="nav-item"><a href="qnalist.me" class="nav-link">Q&amp;A</a>
+						<li class="nav-item"><a href="list.me?pg=1&gk=2" class="nav-link">Q&amp;A</a>
 						</li>
 					</ul>
 				</div>

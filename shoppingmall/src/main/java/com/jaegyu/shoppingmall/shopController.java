@@ -1,5 +1,6 @@
 package com.jaegyu.shoppingmall;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -15,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jaegyu.shoppingmall.goods.goodsDAO;
+import com.jaegyu.shoppingmall.goods.goodsDTO;
 import com.jaegyu.shoppingmall.member.memberDAO;
 import com.jaegyu.shoppingmall.member.memberDTO;
 import com.jaegyu.shoppingmall.member.memberMapper;
 import com.jaegyu.shoppingmall.member.zipcode.zipcodeDTO;
 import com.jaegyu.shoppingmall.qna.qnaDAO;
+import com.jaegyu.shoppingmall.qna.qnaDTO;
 
 @Controller
 public class shopController {
@@ -27,7 +31,9 @@ public class shopController {
 	private memberDAO memberDAO;
 	@Autowired
 	private qnaDAO qnaDAO;
-
+	@Autowired
+	private goodsDAO goodsDAO;
+	
 	@RequestMapping(value = "index.me", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 
@@ -230,36 +236,43 @@ public class shopController {
 		return mav;
 	}
 	
-//	@RequestMapping(value = "hatlist.me")
-//	public ModelAndView HatList(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
-//		ModelAndView mav = new ModelAndView();
-//		//데이터
-//		int pg= Integer.parseInt(request.getParameter("pg"));
-//
-//		//DB 1페이지당 3개씩
-//		int endNum=pg*3;
-//		int startNum=endNum-2;
-//
-//		ImageboardDAO imageboardDAO = new ImageboardDAO();
-//		ArrayList<ImageboardDTO> list = imageboardDAO.imageboardList(startNum, endNum);
-//
-//		//페이징 처리
-//		int totalA= imageboardDAO.getTotalA(); //총글수 (Total Article Number)
-//		int totalP=(totalA+2)/3;			//총페이지수
-//
-//		int startPage=(pg-1)/3*3+1;
-//		int endPage= startPage+2;
-//		if(totalP<endPage)endPage=totalP;
-//
-//		//응답
-//		request.setAttribute("pg",pg);
-//		request.setAttribute("list",list);
-//		request.setAttribute("startPage",startPage);
-//		request.setAttribute("endPage",endPage);
-//		request.setAttribute("totalP",totalP);
-//
-//		return mav;
-//	}
+	@RequestMapping(value = "List.me")
+	public ModelAndView List(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
+		ModelAndView mav = new ModelAndView();
+
+		int pg= Integer.parseInt(arg0.getParameter("pg"));
+		int gk=ServletRequestUtils.getIntParameter(arg0, "gk"); //groupkind 그룹판별..
+
+		int endNum=pg*2;
+		int startNum=endNum-1;
+		
+		if(gk<2){
+		List<goodsDTO> list = (ArrayList)goodsDAO.listGoods(gk);
+		mav.addObject("list",list);
+		}else{
+		List<qnaDTO> list=(ArrayList)qnaDAO.listqna();
+		mav.addObject("list",list);
+		}
+		int totalGoods= goodsDAO.getTotalGoods(); 
+		int totalPage=(totalGoods+2)/3;
+
+		int startPage=(pg-1)/3*3+1;
+		int endPage= startPage+2;
+		if(totalPage<endPage)endPage=totalPage;
+
+		mav.addObject("pg",pg);
+		mav.addObject("startPage",startPage);
+		mav.addObject("endPage",endPage);
+		mav.addObject("totalPage",totalPage);
+		if(gk==0){
+		mav.setViewName("hatList.jsp");
+		}else if(gk==1){
+		mav.setViewName("accessoryList.jsp");
+		}else{
+			mav.setViewName("QnaList.jsp");	
+		}
+		return mav;
+	}
 
 	
 }
