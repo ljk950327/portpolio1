@@ -230,11 +230,36 @@ public class shopController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "hatlist.me")
-	public ModelAndView HatList(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
-		ModelAndView mav = new ModelAndView();
-		return mav;
-	}
+//	@RequestMapping(value = "hatlist.me")
+//	public ModelAndView HatList(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
+//		ModelAndView mav = new ModelAndView();
+//		//데이터
+//		int pg= Integer.parseInt(request.getParameter("pg"));
+//
+//		//DB 1페이지당 3개씩
+//		int endNum=pg*3;
+//		int startNum=endNum-2;
+//
+//		ImageboardDAO imageboardDAO = new ImageboardDAO();
+//		ArrayList<ImageboardDTO> list = imageboardDAO.imageboardList(startNum, endNum);
+//
+//		//페이징 처리
+//		int totalA= imageboardDAO.getTotalA(); //총글수 (Total Article Number)
+//		int totalP=(totalA+2)/3;			//총페이지수
+//
+//		int startPage=(pg-1)/3*3+1;
+//		int endPage= startPage+2;
+//		if(totalP<endPage)endPage=totalP;
+//
+//		//응답
+//		request.setAttribute("pg",pg);
+//		request.setAttribute("list",list);
+//		request.setAttribute("startPage",startPage);
+//		request.setAttribute("endPage",endPage);
+//		request.setAttribute("totalP",totalP);
+//
+//		return mav;
+//	}
 
 	
 }

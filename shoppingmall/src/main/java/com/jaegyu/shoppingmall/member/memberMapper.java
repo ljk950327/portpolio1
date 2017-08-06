@@ -37,7 +37,6 @@ public class memberMapper {
 	public static int checkMember(memberDTO dto){
 		SqlSession session = sqlMapper.openSession();
 		int count=session.selectOne("checkMember",dto);
-		session.commit();
 		session.close();
 		return count;
 	}
@@ -45,7 +44,6 @@ public class memberMapper {
 	public static memberDTO loginMember(String id){
 		SqlSession session = sqlMapper.openSession();
 		memberDTO dto =(memberDTO)session.selectOne("loginMember",id);
-		session.commit();
 		session.close();
 		return dto;
 	}
@@ -54,7 +52,6 @@ public class memberMapper {
 
 		SqlSession session = sqlMapper.openSession();
 		String confirmId=(String)session.selectOne("confirmId",id);
-		session.commit();
 		session.close();
 		return confirmId;
 		
@@ -63,6 +60,7 @@ public class memberMapper {
 	public static memberDTO getMember(String id){
 		  SqlSession session = sqlMapper.openSession();
 		  memberDTO dto = (memberDTO)session.selectOne("getMember", id);
+		  session.close();
 		  return dto;
 	  }
 	
@@ -84,7 +82,6 @@ public class memberMapper {
 	public static int isAdmin(String id){
 		SqlSession session=sqlMapper.openSession();
 		int member_admin=(Integer) session.selectOne("isAdmin",id);
-		session.commit();
 		session.close();
 		return member_admin;
 	}
@@ -92,7 +89,6 @@ public class memberMapper {
 	public static List<zipcodeDTO> searchZipcode(String dong){
 		SqlSession session=sqlMapper.openSession();
 		List<zipcodeDTO> list=session.selectList("searchZipcode","%"+dong+"%");
-		session.commit();
 		session.close();
 		return list;
 	}

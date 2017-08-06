@@ -4,3 +4,5 @@ price number not null,
 content varchar2(80),
 imgsrc varchar2(200)
 );
+
+create sequence goods_seq;

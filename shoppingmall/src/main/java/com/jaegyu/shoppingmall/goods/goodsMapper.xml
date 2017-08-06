@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jaegyu.shoppingmall.goods.goodsMapper">
+
+	<select id="listgoods" resultType="goodsDTO">
+		select * from goods order by num asc
+	</select>
+
+	<select id="getgoods" parameterType="int" resultType="goodsDTO">
+		select * from goods where num=#{num}
+	</select>
+
+	<insert id="insertgoods" parameterType="goodsDTO">
+		insert into goods values(goods_seq.nextval,#{goodsname},#{price},#{content},#{imgsrc})
+	</insert>
+
+	<delete id="deletegoods" parameterType="int">
+		delete from goods where num=#{num}
+	</delete>
+
+	<update id="updategoods" parameterType="goodsDTO">
+		update goods set
+		goodsname=#{goodsname},price=#{price},content=#{content},imgsrc=#{imgsrc}
+		where num=#{num}
+	</update>
+
+</mapper>
