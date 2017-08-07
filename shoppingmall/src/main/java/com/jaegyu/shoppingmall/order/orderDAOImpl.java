@@ -36,10 +36,23 @@ public class orderDAOImpl implements orderDAO {
 		orderMapper.cartUpdate(sql);
 	}
 
+
+	@Override
+	public int orderInput(orderDTO dto) {
+		return orderMapper.orderInput(dto);
+	}
+
 	@Override
 	public int orderDelete(int ordernum) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public List<orderDTO> orderList(String buyer) {
+		return orderMapper.orderList(buyer);
+	}
+	
+	
 
 }

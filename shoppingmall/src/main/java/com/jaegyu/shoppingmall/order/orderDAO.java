@@ -9,4 +9,6 @@ public interface orderDAO {
 	public int orderDelete(int ordernum);
 	public boolean isCart(String buyer,String goodsname);
 	public void cartUpdate(String buyer, String goodsname, int qty); 
+	public int orderInput(orderDTO dto);
+	public List<orderDTO> orderList(String buyer);
 }

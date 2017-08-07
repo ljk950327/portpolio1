@@ -72,8 +72,15 @@
                     </tbody>
                   </table>
                   <div align="center">
+                  	<c:choose>
+                  	<c:when test="${empty sessionScope.id }">
+                  	<input type="button" value="돌아가기" onclick="location.href='List.me?pg=${requestScope.pg }&gk=${dto.gk }'" class="btn btn-default"> </div>
+                    </c:when>
+                    <c:otherwise>
                     <input type="submit" value="장바구니에 넣기" class="btn btn-default">
                     <input type="button" value="돌아가기" onclick="location.href='List.me?pg=${requestScope.pg }&gk=${dto.gk }'" class="btn btn-default"> </div>
+                    </c:otherwise>
+  					</c:choose>
                 </form>
               </div>
             </div>

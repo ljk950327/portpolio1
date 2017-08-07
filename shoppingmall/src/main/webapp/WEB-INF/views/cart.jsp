@@ -78,7 +78,7 @@ td {
 
 		</table>
 
-		<form method="post" action="order.me" align="center">
+		<form method="post" action="Cart.me" align="center">
 			<c:choose>
 
 				<c:when test="${empty requestScope.list }">
@@ -89,7 +89,7 @@ td {
 					<input type="button" value="첫 화면" class="btn btn-default" onclick="window.location='index.me'"
 						style="width: 200px">
 					<input type="hidden" name="command" value="chk">
-					<input type="submit" value="주문완료" class="btn btn-default"
+					<input type="submit" value="주문" class="btn btn-default"
 						style="width: 200px">
 				</c:otherwise>
 			</c:choose>

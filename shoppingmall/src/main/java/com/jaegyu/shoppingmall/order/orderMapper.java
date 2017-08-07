@@ -53,6 +53,16 @@ public class orderMapper {
 		java.util.HashMap map=new java.util.HashMap();
 		map.put("sql",sql);
 		int num=session.update("cartUpdate", map);
+		session.commit();
+		session.close();
+		return num;
+	}
+	
+	public static int orderInput(orderDTO dto){
+		SqlSession session = sqlMapper.openSession();
+		int num=session.insert("orderInput",dto);
+		session.commit();
+		session.close();
 		return num;
 	}
 	
@@ -64,6 +74,13 @@ public class orderMapper {
 		session.commit();
 		session.close();
 		return num;
+	}
+	
+	public static List<orderDTO> orderList(String buyer){
+		SqlSession session = sqlMapper.openSession();
+		List<orderDTO> list=session.selectList("orderList",buyer);
+		session.close();
+		return list;
 	}
 	
 	

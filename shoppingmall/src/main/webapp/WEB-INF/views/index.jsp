@@ -10,7 +10,7 @@
 						</li>
 						<li class="nav-item"><a class="nav-link" href="List.me?pg=1&gk=2">Accessory</a>
 						</li>
-						<li class="nav-item"><a href="list.me?pg=1&gk=3" class="nav-link">Q&amp;A</a>
+						<li class="nav-item"><a href="List.me?pg=1&gk=3" class="nav-link">Q&amp;A</a>
 						</li>
 					</ul>
 				</div>

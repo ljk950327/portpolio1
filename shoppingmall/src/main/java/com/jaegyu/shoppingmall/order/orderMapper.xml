@@ -20,5 +20,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="cartDelete" parameterType="java.util.HashMap">
 		${sql}
 	</delete>
+	<insert id="orderInput" parameterType="orderDTO">
+		insert into orderdb values(#{goodsnum},#{qty},#{sum},sysdate,#{buyer},seq_order.nextval)
+	</insert>
+	<select id="orderList" parameterType="String" resultType="orderDTO">
+		select * from orderdb where buyer=#{buyer}
+	</select>
 </mapper>
 
