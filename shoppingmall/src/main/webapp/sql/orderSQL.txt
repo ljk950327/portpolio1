@@ -1,13 +1,10 @@
-create table order(
-goodsname varchar2(40) not null,
-price number not null,
-qty number not null,
-ordertime date default sysdate,
-buyer varchar2(20) references member(id),
-constraints nameFK foreign key(goodsname) references goods(goodsname)
-constraints priceFK foreign key(price) references goods(goodsname)
-constraints contentFK foreign key(goodsname) references goods(goodsname)
-
+create table orderdb(
+ordernum number,
+goodsnum number references goods(num),
+qty number references cart(qty),
+sum number not null,
+ordertime date,
+buyer varchar2(20) references member(id)
 );
 
 create sequence seq_order cache 10 nocycle;

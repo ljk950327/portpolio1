@@ -10,6 +10,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias alias="memberDTO" type="com.jaegyu.shoppingmall.member.memberDTO"/>
 		<typeAlias alias="zipcodeDTO" type="com.jaegyu.shoppingmall.member.zipcode.zipcodeDTO"/>
 		<typeAlias alias="goodsDTO" type="com.jaegyu.shoppingmall.goods.goodsDTO"/>
+		<typeAlias alias="orderDTO" type="com.jaegyu.shoppingmall.order.orderDTO"/>
+		<typeAlias alias="cartDTO" type="com.jaegyu.shoppingmall.order.cartDTO"/>
 		
 		
 	</typeAliases>
@@ -28,6 +30,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="com/jaegyu/shoppingmall/qna/qnaMapper.xml"/>
 		<mapper resource="com/jaegyu/shoppingmall/member/memberMapper.xml"/>
 		<mapper resource="com/jaegyu/shoppingmall/goods/goodsMapper.xml"/>
+		<mapper resource="com/jaegyu/shoppingmall/order/orderMapper.xml"/>
 		
 	</mappers>
 </configuration>

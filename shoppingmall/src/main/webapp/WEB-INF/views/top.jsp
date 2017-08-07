@@ -86,7 +86,7 @@
 							<br>
 							<div class="btn-group bg-inverse">
 								<a href="memberLogin.me" class="btn btn-primary">Logout </a> <a
-									href="memberModify.me" class="btn btn-primary">회원정보 수정</a> <a href="#"
+									href="memberModify.me" class="btn btn-primary">회원정보 수정</a> <a href="Cart.me?id=${sessionScope.id }"
 									class="btn btn-primary">장바구니</a> <a href="#"
 									class="btn btn-primary">주문 내역</a>
 							

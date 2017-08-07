@@ -22,6 +22,8 @@ import com.jaegyu.shoppingmall.member.memberDAO;
 import com.jaegyu.shoppingmall.member.memberDTO;
 import com.jaegyu.shoppingmall.member.memberMapper;
 import com.jaegyu.shoppingmall.member.zipcode.zipcodeDTO;
+import com.jaegyu.shoppingmall.order.cartDTO;
+import com.jaegyu.shoppingmall.order.orderDAO;
 import com.jaegyu.shoppingmall.qna.qnaDAO;
 import com.jaegyu.shoppingmall.qna.qnaDTO;
 
@@ -33,7 +35,9 @@ public class shopController {
 	private qnaDAO qnaDAO;
 	@Autowired
 	private goodsDAO goodsDAO;
-	
+	@Autowired
+	private orderDAO orderDAO;
+
 	@RequestMapping(value = "index.me", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 
@@ -47,7 +51,6 @@ public class shopController {
 		String id = arg0.getParameter("id");
 		String passwd = arg0.getParameter("passwd");
 		String login = arg0.getParameter("login");
-		
 
 		if (login != null) {
 			memberDTO dto = memberDAO.loginMember(id);
@@ -235,45 +238,114 @@ public class shopController {
 		mav.setViewName("message");
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "List.me")
 	public ModelAndView List(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
 		ModelAndView mav = new ModelAndView();
 
-		int pg= Integer.parseInt(arg0.getParameter("pg"));
-		int gk=ServletRequestUtils.getIntParameter(arg0, "gk"); //groupkind 그룹판별..
+		int pg = Integer.parseInt(arg0.getParameter("pg"));
+		int gk = ServletRequestUtils.getIntParameter(arg0, "gk"); // groupkind
+																	// 그룹판별..
 
-		int endNum=pg*2;
-		int startNum=endNum-1;
-		int totalGoods= goodsDAO.getTotalGoods(gk); 
-		int totalPage=(totalGoods+1)/2;
+		int endNum = pg * 2;
+		int startNum = endNum - 1;
+		int totalGoods = goodsDAO.getTotalGoods(gk);
+		int totalPage = (totalGoods + 1) / 2;
 
-		int startPage=(pg-1)/3*3+1;
-		int endPage= startPage+2;
-		if(totalPage<endPage)endPage=totalPage;
-		
-		if(gk==1||gk==2){
-		List<goodsDTO> list = (ArrayList)goodsDAO.listGoods(gk,startNum,endNum);
-		mav.addObject("list",list);
-		}else{
-		List<qnaDTO> list=(ArrayList)qnaDAO.listqna();
-		mav.addObject("list",list);
+		int startPage = (pg - 1) / 3 * 3 + 1;
+		int endPage = startPage + 2;
+		if (totalPage < endPage)
+			endPage = totalPage;
+
+		if (gk == 1 || gk == 2) {
+			List<goodsDTO> list = (ArrayList)goodsDAO.listGoods(gk, startNum, endNum);
+			mav.addObject("list", list);
+		} else {
+			List<qnaDTO> list =  (ArrayList)qnaDAO.listqna();
+			mav.addObject("list", list);
 		}
 
-
-		mav.addObject("pg",pg);
-		mav.addObject("startPage",startPage);
-		mav.addObject("endPage",endPage);
-		mav.addObject("totalPage",totalPage);
-		if(gk==1){
-		mav.setViewName("hatList");
-		}else if(gk==2){
-		mav.setViewName("accessoryList");
-		}else{
-			mav.setViewName("QnaList");	
+		mav.addObject("pg", pg);
+		mav.addObject("startPage", startPage);
+		mav.addObject("endPage", endPage);
+		mav.addObject("totalPage", totalPage);
+		mav.addObject("gk", gk);
+		if (gk < 3) {
+			mav.setViewName("goodsList");
+		} else {
+			mav.setViewName("QnaList");
 		}
 		return mav;
 	}
-	
+
+	@RequestMapping(value = "Content.me")
+	public ModelAndView Content(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		int num = ServletRequestUtils.getIntParameter(arg0, "num");
+		int pg = Integer.parseInt(arg0.getParameter("pg"));
+		goodsDTO dto = goodsDAO.getGoods(num);
+		mav.addObject("pg", pg);
+		mav.addObject("dto", dto);
+		mav.setViewName("goodsContent");
+		return mav;
+	}
+
+	@RequestMapping(value = "Cart.me", method = RequestMethod.POST)
+	public ModelAndView CartReq(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
+		ModelAndView mav = new ModelAndView();
+
+		HttpSession session = arg0.getSession();
+		String id = (String) session.getAttribute("id");
+		memberDTO memberDTO = memberDAO.getMember(id);
+
+		String command = arg0.getParameter("command");
+
+		
+
+		if (command.equals("add")) {
+			int goodsnum = ServletRequestUtils.getIntParameter(arg0, "num");
+			String goodsname = arg0.getParameter("goodsname");
+			int price = ServletRequestUtils.getIntParameter(arg0, "price");
+			int qty = ServletRequestUtils.getIntParameter(arg0, "qty");
+			cartDTO dto = new cartDTO();
+			mav.addObject("msg", "장바구니에 넣었습니다.");
+			mav.addObject("url", "Cart.me");
+			if (orderDAO.isCart(id, goodsname)) {
+				orderDAO.cartUpdate(id, goodsname, qty);
+			} else {
+				dto.setQty(qty);
+				dto.setNum(goodsnum);
+				dto.setBuyer(id);
+				dto.setGoodsname(goodsname);
+				dto.setPrice(price);
+				orderDAO.cartInput(dto);
+				
+			}
+		}else if(command.equals("del")){
+			int index = ServletRequestUtils.getIntParameter(arg0, "index");
+			orderDAO.cartDelete(id, index);
+			mav.addObject("msg", "삭제");
+			mav.addObject("url", "Cart.me");
+			mav.setViewName("message");
+		}
+		
+		mav.setViewName("message");
+		return mav;
+
+	}
+
+	@RequestMapping(value="Cart.me", method=RequestMethod.GET)
+	public ModelAndView CartList(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = arg0.getSession();
+		String buyer = (String) session.getAttribute("id");
+		List<cartDTO> list=orderDAO.cartList(buyer);
+		if(list!=null){
+		mav.addObject("list",list);
+		}
+		mav.setViewName("cart");
+		return mav;
+		
+	}
 
 }

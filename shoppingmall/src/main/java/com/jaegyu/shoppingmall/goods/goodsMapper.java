@@ -28,7 +28,7 @@ public class goodsMapper {
 	
 	public static List<goodsDTO> listGoods(String sql) {
 		SqlSession session = sqlMapper.openSession();
-		java.util.HashMap map=new java.util.HashMap();
+		java.util.HashMap<String, String> map=new java.util.HashMap<String, String>();
 		map.put("sql",sql);
 		List<goodsDTO> list = session.selectList("listGoods",map);
 		session.close();

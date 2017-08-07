@@ -10,6 +10,9 @@
 	</bean>
 	<bean id="goodsDAO" class="com.jaegyu.shoppingmall.goods.goodsDAOImpl">
 	</bean>
+	<bean id="orderDAO" class="com.jaegyu.shoppingmall.order.orderDAOImpl">
+	</bean>
+	
 </beans>
 
 

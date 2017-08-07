@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jaegyu.shoppingmall.order.orderMapper">
+	<insert id="cartInput" parameterType="cartDTO">
+		insert into cart values(#{num},#{buyer},#{qty},#{goodsname},#{price})
+	</insert>
+	<select id="cartList" parameterType="String" resultType="cartDTO">
+		select * from cart where buyer=#{buyer}
+	</select>
+	<select id="isCart" parameterType="java.util.HashMap" resultType="int">
+		${sql}
+	</select>
+	<update id="cartUpdate" parameterType="java.util.HashMap">
+		${sql}
+	</update>
+	<delete id="cartDelete" parameterType="java.util.HashMap">
+		${sql}
+	</delete>
+</mapper>
+

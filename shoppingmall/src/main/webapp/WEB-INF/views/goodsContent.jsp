@@ -9,12 +9,22 @@
             <li class="nav-item">
               <a href="index.me" class="nav-link"><i class="fa fa-home fa-home"></i>&nbsp;Home</a>
             </li>
+            <c:if test="${dto.gk==1 }">
             <li class="nav-item">
               <a href="List.me?pg=1&gk=1" class="active nav-link">Hat</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="List.me?pg=1&gk=2">Accessory</a>
             </li>
+			</c:if>
+			<c:if test="${dto.gk==2 }">
+            <li class="nav-item">
+              <a href="List.me?pg=1&gk=1" class="active nav-link">Hat</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="List.me?pg=1&gk=2">Accessory</a>
+            </li>
+			</c:if>
             <li class="nav-item">
               <a href="List.me?pg=1&gk=3" class="nav-link">Q&amp;A</a>
             </li>
@@ -26,49 +36,51 @@
           <div class="container">
             <div class="row">
               <div class="col-md-6">
-                <img src="https://pingendo.com/assets/photos/wireframe/photo-1.jpg" class="img-fluid img-thumbnail"> </div>
+                <img src="img/${dto.imgsrc }" class="img-fluid img-thumbnail"> </div>
               <div class="col-md-6">
-                <form name="hatContent" action="hatContentBuy" method="post">
+                <form name="goodsContent" action="Cart.me" method="post">
+                	<input type="hidden" name="command" value="add">
+                	<input type="hidden" name="num" value="${dto.num }">
+                	<input type="hidden" name="goodsname" value="${dto.goodsname }">
+                	<input type="hidden" name="price" value="${dto.price }">
+                	
                   <table class="table">
                     <tbody>
                       <tr>
                         <td>
-                          <h3 class="text-primary"><output name="goodName">${dto.goodName }</output></h3>
+                          <h3 class="text-primary"><output name="goodName" >${dto.goodsname }</output></h3>
                         </td>
                       </tr>
                       <tr>
-                        <td>단가 : &nbsp;&nbsp;<output name="goodsPrice">${imageboardDTO.goodsPrice }</output></td>
+                        <td>단가 : &nbsp;&nbsp;<output name="goodsPrice">${dto.price }</output></td>
                       </tr>
                       <tr>
-                        <td> 수량 : &nbsp;&nbsp; <select name="email2">
+                        
+                        <td> 수량 : &nbsp;&nbsp; <select name="qty">
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
 				<option value="4">4</option>
 						
-			</select> </td>
-                      </tr>
-                      <tr>
-                        <td>합계 : &nbsp;&nbsp;<output name="goodsSUM">${imageboardDTO.imagePrice*imageboardDTO.imageQty }</output></td>
+			</select></td>
+			
                       </tr>
                       <tr>
                         <td colspan="2" height="200" valign="top">
-                          <pre>${imageboardDTO.imageContent}</pre> </td>
+                          <pre>${dto.content}</pre> </td>
                       </tr>
                     </tbody>
                   </table>
                   <div align="center">
-                    <input type="button" value="목록" onclick="location.href='imageboardList.jsp?pg=${pg }'" class="btn btn-default">
-                    <input type="button" value="장바구니" onclick="location.href='imageboardModifyProc.jsp?pg=${pg }&amp;seq=${imageboardDTO.seq }'" class="btn btn-default">
-                    <input type="button" value="바로구매" onclick="location.href='imageboardDelete.jsp?seq=${imageboardDTO.seq }'" class="btn btn-default"> </div>
+                    <input type="submit" value="장바구니에 넣기" class="btn btn-default">
+                    <input type="button" value="돌아가기" onclick="location.href='List.me?pg=${requestScope.pg }&gk=${dto.gk }'" class="btn btn-default"> </div>
                 </form>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
   <script src="https://pingendo.com/assets/bootstrap/bootstrap-4.0.0-alpha.6.min.js"></script>
