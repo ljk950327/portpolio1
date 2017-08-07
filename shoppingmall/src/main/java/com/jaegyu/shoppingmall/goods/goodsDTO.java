@@ -2,7 +2,7 @@ package com.jaegyu.shoppingmall.goods;
 
 public class goodsDTO {
 	private int num;
-	private String goodsName;
+	private String goodsname;
 	private String price;
 	private String content;
 	private String imgsrc;
@@ -20,11 +20,11 @@ public class goodsDTO {
 	public void setNum(int num) {
 		this.num = num;
 	}
-	public String getGoodsName() {
-		return goodsName;
+	public String getGoodsname() {
+		return goodsname;
 	}
 	public void setGoodsName(String goodsName) {
-		this.goodsName = goodsName;
+		this.goodsname = goodsName;
 	}
 	public String getPrice() {
 		return price;

@@ -13,6 +13,7 @@ import com.jaegyu.shoppingmall.goods.goodsDTO;
 
 public class goodsMapper {
 	private static SqlSessionFactory sqlMapper;
+
 	static {
 		try {
 			String resource = "SqlMapConfig.xml";
@@ -25,16 +26,18 @@ public class goodsMapper {
 		}
 	}
 	
-	public static List<goodsDTO> listGoods(int gk) {
+	public static List<goodsDTO> listGoods(String sql) {
 		SqlSession session = sqlMapper.openSession();
-		List<goodsDTO> list = session.selectList("listGoods",gk);
+		java.util.HashMap map=new java.util.HashMap();
+		map.put("sql",sql);
+		List<goodsDTO> list = session.selectList("listGoods",map);
 		session.close();
 		return list;
 	}
 	
 	public static goodsDTO getGoods(int num) {
 		SqlSession session = sqlMapper.openSession();
-		goodsDTO goodsDTO = session.selectOne("getGoods", num);
+		goodsDTO goodsDTO = (goodsDTO)session.selectOne("getGoods", num);
 		session.close();
 		return goodsDTO;
 	}
@@ -64,9 +67,9 @@ public class goodsMapper {
 		return res;
 	}
 	
-	public static int getTotalGoods(){
+	public static int getTotalGoods(int gk){
 		SqlSession session=sqlMapper.openSession();
-		int count=session.selectOne("getTotalGoods");
+		int count=session.selectOne("getTotalGoods",gk);
 		session.close();
 		return count;
 	}

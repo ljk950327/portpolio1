@@ -1,28 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <style>
-    .element {
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  </style>
+
 <%@ include file="top.jsp" %>
 
-      <div class="row">
+        <div class="row">
         <div class="col-md-12">
           <ul class="nav nav-tabs">
             <li class="nav-item">
-              <a href="#" class="nav-link"><i class="fa fa-home fa-home"></i>&nbsp;Home</a>
+              <a href="index.me" class="nav-link"><i class="fa fa-home fa-home"></i>&nbsp;Home</a>
             </li>
             <li class="nav-item">
-              <a href="hatlist.me" class="active nav-link">Hat</a>
+              <a href="List.me?pg=1&gk=1" class="active nav-link">Hat</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="acclist.me">Accessory</a>
+              <a class="nav-link" href="List.me?pg=1&gk=2">Accessory</a>
             </li>
             <li class="nav-item">
-              <a href="qnalist.me" class="nav-link">Q&amp;A</a>
+              <a href="List.me?pg=1&gk=3" class="nav-link">Q&amp;A</a>
             </li>
           </ul>
         </div>

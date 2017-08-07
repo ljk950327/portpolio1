@@ -245,34 +245,35 @@ public class shopController {
 
 		int endNum=pg*2;
 		int startNum=endNum-1;
+		int totalGoods= goodsDAO.getTotalGoods(gk); 
+		int totalPage=(totalGoods+1)/2;
+
+		int startPage=(pg-1)/3*3+1;
+		int endPage= startPage+2;
+		if(totalPage<endPage)endPage=totalPage;
 		
-		if(gk<2){
-		List<goodsDTO> list = (ArrayList)goodsDAO.listGoods(gk);
+		if(gk==1||gk==2){
+		List<goodsDTO> list = (ArrayList)goodsDAO.listGoods(gk,startNum,endNum);
 		mav.addObject("list",list);
 		}else{
 		List<qnaDTO> list=(ArrayList)qnaDAO.listqna();
 		mav.addObject("list",list);
 		}
-		int totalGoods= goodsDAO.getTotalGoods(); 
-		int totalPage=(totalGoods+2)/3;
 
-		int startPage=(pg-1)/3*3+1;
-		int endPage= startPage+2;
-		if(totalPage<endPage)endPage=totalPage;
 
 		mav.addObject("pg",pg);
 		mav.addObject("startPage",startPage);
 		mav.addObject("endPage",endPage);
 		mav.addObject("totalPage",totalPage);
-		if(gk==0){
-		mav.setViewName("hatList.jsp");
-		}else if(gk==1){
-		mav.setViewName("accessoryList.jsp");
+		if(gk==1){
+		mav.setViewName("hatList");
+		}else if(gk==2){
+		mav.setViewName("accessoryList");
 		}else{
-			mav.setViewName("QnaList.jsp");	
+			mav.setViewName("QnaList");	
 		}
 		return mav;
 	}
-
 	
+
 }

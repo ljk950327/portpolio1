@@ -2,7 +2,6 @@ package com.jaegyu.shoppingmall.member;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.ibatis.io.Resources;

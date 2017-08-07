@@ -7,8 +7,9 @@ import com.jaegyu.shoppingmall.goods.goodsMapper;
 public class goodsDAOImpl implements goodsDAO {
 
 	@Override
-	public List<goodsDTO> listGoods(int gk) {
-		return goodsMapper.listGoods(gk);
+	public List<goodsDTO> listGoods(int gk,int startNum,int endNum) {
+		String sql="select * from (select rownum rn, tt.* from (select * from goods where gk="+gk+" order by num desc ) tt) where rn >="+startNum+" and rn <="+endNum;
+		return goodsMapper.listGoods(sql);
 	}
 
 	@Override
@@ -33,9 +34,9 @@ public class goodsDAOImpl implements goodsDAO {
 	}
 
 	@Override
-	public int getTotalGoods() {
+	public int getTotalGoods(int gk) {
 		
-		return goodsMapper.getTotalGoods();
+		return goodsMapper.getTotalGoods(gk);
 	}
 	
 	

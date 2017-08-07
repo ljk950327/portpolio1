@@ -15,8 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<insert id="insertqna" parameterType="qnaDTO">
-		insert into qna values(qna_seq.nextval,#{writer},
-		#{email},#{subject},sysdate,0,#{content},#{ip},#{re_step},#{re_level})
+		insert into qna values(qna_seq.nextval,#{writer},#{email},#{subject},sysdate,0,#{content},#{ip},#{re_step},#{re_level})
 	</insert>
 
 	<update id="readCountPlus" parameterType="int">
@@ -28,9 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 
 	<update id="updateqna" parameterType="qnaDTO">
-		update qna set
-		writer=#{writer},subject=#{subject},email=#{email},content=#{content}
-		where num=#{num}
+		update qna set writer=#{writer},subject=#{subject},email=#{email},content=#{content} where num=#{num}
 	</update>
 	<update id="restepCount" parameterType="java.util.HashMap">
 		${sql}

@@ -6,8 +6,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.jaegyu.shoppingmall.member.memberMapper">
 
-	<insert id="insertMember" parameterType="memberDTO"> insert into
-		member values(#{id},#{passwd},#{name},#{ssn1},#{ssn2},#{email},#{ph1},#{ph2},#{ph3},#{zipcode},#{addr1},#{addr2},#{member_admin},sysdate) </insert>
+	<insert id="insertMember" parameterType="memberDTO"> 
+	insert into member values(#{id},#{passwd},#{name},#{ssn1},#{ssn2},#{email},#{ph1},#{ph2},#{ph3},#{zipcode},#{addr1},#{addr2},#{member_admin},sysdate) </insert>
 	<select id="checkMember" parameterType="memberDTO" resultType="int"> 
 		select count(*) from member where ssn1=#{ssn1} and ssn2=#{ssn2}
 	</select>
