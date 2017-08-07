@@ -9,29 +9,21 @@
     <%@ include file="top.jsp" %>
   
       <div class="row">
-        <div class="col-md-12">
+        	<div class="col-md-12">
           <ul class="nav nav-tabs">
             <li class="nav-item">
               <a href="index.me" class="nav-link"><i class="fa fa-home fa-home"></i>&nbsp;Home</a>
             </li>
-            <c:if test="${gk==1 }">
+ 
             <li class="nav-item">
-              <a href="List.me?pg=1&gk=1" class="active nav-link">Hat</a>
+              <a href="List.me?pg=1&gk=1" class="nav-link">Hat</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="List.me?pg=1&gk=2">Accessory</a>
             </li>
-			</c:if>
-			<c:if test="${gk==2 }">
+
             <li class="nav-item">
-              <a href="List.me?pg=1&gk=1" class=" nav-link">Hat</a>
-            </li>
-            <li class="nav-item">
-              <a class="active nav-link" href="List.me?pg=1&gk=2">Accessory</a>
-            </li>
-			</c:if>
-            <li class="nav-item">
-              <a href="List.me?pg=1&gk=3" class="nav-link">Q&amp;A</a>
+              <a href="List.me?pg=1&gk=3" class="active nav-link">Q&amp;A</a>
             </li>
           </ul>
         </div>

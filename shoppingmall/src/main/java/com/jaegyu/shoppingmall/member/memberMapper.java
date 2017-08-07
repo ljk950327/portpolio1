@@ -91,4 +91,6 @@ public class memberMapper {
 		session.close();
 		return list;
 	}
+	
+	
 }

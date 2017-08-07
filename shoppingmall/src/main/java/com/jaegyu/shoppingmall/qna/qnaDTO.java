@@ -2,8 +2,6 @@ package com.jaegyu.shoppingmall.qna;
 
 public class qnaDTO {
 	private int num;
-	private String writer;
-	private String email;
 	private String subject;
 	private String reg_date;
 	private int readcount;
@@ -11,24 +9,19 @@ public class qnaDTO {
 	private String ip;
 	private int re_step;
 	private int re_level;
+	private String writer;
 	  
-	public int getNum() {
-		return num;
-	}
-	public void setNum(int num) {
-		this.num = num;
-	}
 	public String getWriter() {
 		return writer;
 	}
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
-	public String getEmail() {
-		return email;
+	public int getNum() {
+		return num;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setNum(int num) {
+		this.num = num;
 	}
 	public String getSubject() {
 		return subject;

@@ -23,9 +23,11 @@ public class qnaMapper {
 		}
 	}
 	
-	public static List<qnaDTO> listqna() {
+	public static List<qnaDTO> listqna(String sql) {
 		SqlSession session = sqlMapper.openSession();
-		List<qnaDTO> list = session.selectList("listqna");
+		java.util.HashMap<String, String> map=new java.util.HashMap<String, String>();
+		map.put("sql",sql);
+		List<qnaDTO> list = session.selectList("listqna",map);
 		session.close();
 		return list;
 	}
@@ -80,7 +82,12 @@ public class qnaMapper {
 		session.close();
 	}
 	
-	
+	public static int getTotalQna(){
+		SqlSession session=sqlMapper.openSession();
+		int num=session.selectOne("getTotalQna");
+		session.close();
+		return num;
+	}
 
 
 

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.GeneratorStrategy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.ServletRequestUtils;
@@ -246,23 +247,29 @@ public class shopController {
 
 		int pg = Integer.parseInt(arg0.getParameter("pg"));
 		int gk = ServletRequestUtils.getIntParameter(arg0, "gk"); // groupkind
-																	// 그룹판별..
+		int totalPage;															// 그룹판별..
 
 		int endNum = pg * 2;
 		int startNum = endNum - 1;
+		if (gk <3) {
 		int totalGoods = goodsDAO.getTotalGoods(gk);
-		int totalPage = (totalGoods + 1) / 2;
+		 totalPage = (totalGoods + 1) / 2;
+		}else{
+			int totalQna = qnaDAO.getTotalQna();
+			totalPage = (totalQna + 1) / 2;
+		}
+		
 
 		int startPage = (pg - 1) / 3 * 3 + 1;
 		int endPage = startPage + 2;
 		if (totalPage < endPage)
 			endPage = totalPage;
 
-		if (gk == 1 || gk == 2) {
+		if (gk <3) {
 			List<goodsDTO> list = (ArrayList) goodsDAO.listGoods(gk, startNum, endNum);
 			mav.addObject("list", list);
 		} else {
-			List<qnaDTO> list = (ArrayList) qnaDAO.listqna();
+			List<qnaDTO> list = (ArrayList) qnaDAO.listqna(startNum,endNum);
 			mav.addObject("list", list);
 		}
 
@@ -274,7 +281,7 @@ public class shopController {
 		if (gk < 3) {
 			mav.setViewName("goodsList");
 		} else {
-			mav.setViewName("QnaList");
+			mav.setViewName("Qnalist");
 		}
 		return mav;
 	}
@@ -375,4 +382,34 @@ public class shopController {
 		mav.setViewName("bill");
 		return mav;
 	}
+	
+	@RequestMapping(value = "QnaWrite.me", method = RequestMethod.GET)
+	public ModelAndView QnaWrite(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("QnaWrite");
+		return mav;
+	}
+	
+	@RequestMapping(value = "QnaWrite.me", method = RequestMethod.POST)
+	public ModelAndView QnaWritePro(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
+
+		qnaDTO dto = getQnaDTO(arg0);
+		int res = qnaDAO.insertqna(dto);
+		return new ModelAndView("redirect:List.me?pg=1&gk=3");
+
+	}
+	protected qnaDTO getQnaDTO(HttpServletRequest arg0) throws Exception{
+		qnaDTO dto = new qnaDTO();
+		dto.setNum(ServletRequestUtils.getIntParameter(arg0, "num"));
+		dto.setSubject(arg0.getParameter("subject"));
+		dto.setContent(arg0.getParameter("content"));
+		dto.setIp(arg0.getRemoteAddr());
+		dto.setWriter(arg0.getParameter("writer"));
+		dto.setRe_step(ServletRequestUtils.getIntParameter(arg0, "re_step"));
+		dto.setRe_level(ServletRequestUtils.getIntParameter(arg0, "re_level"));
+		return dto;
+	}	
+	
+		
+
 }

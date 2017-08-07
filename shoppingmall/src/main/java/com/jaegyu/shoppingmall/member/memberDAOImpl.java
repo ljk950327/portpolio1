@@ -77,6 +77,7 @@ public class memberDAOImpl implements memberDAO {
 		 
 		return memberMapper.searchZipcode(dong);
 	}
+	
 
 
 

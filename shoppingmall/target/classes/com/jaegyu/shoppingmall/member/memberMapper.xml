@@ -17,6 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="confirmId" parameterType="String" resultType="String">
 		select id from member where id=#{id}
 	</select>
+
 	<select id="getMember" parameterType="String" resultType="memberDTO">
     select * from member where id = #{id}
   </select>

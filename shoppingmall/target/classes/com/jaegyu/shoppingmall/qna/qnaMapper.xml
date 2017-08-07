@@ -6,30 +6,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.jaegyu.shoppingmall.qna.qnaMapper">
 
-	<select id="listqna" resultType="qnaDTO">
-		select * from qna order by re_step asc
+	<select id="listqna" parameterType="java.util.HashMap"
+		resultType="qnaDTO">
+		${sql}
 	</select>
 
 	<select id="getqna" parameterType="int" resultType="qnaDTO">
-		select * from qna where num=#{num}
+		select * from
+		qna where num=#{num}
 	</select>
 
 	<insert id="insertqna" parameterType="qnaDTO">
-		insert into qna values(qna_seq.nextval,#{writer},#{email},#{subject},sysdate,0,#{content},#{ip},#{re_step},#{re_level})
+		insert into qna
+		values(qna_seq.nextval,#{subject},sysdate,0,#{content},#{ip},#{re_step},#{re_level},#{writer})
 	</insert>
 
 	<update id="readCountPlus" parameterType="int">
-		update qna set readcount=readcount+1 where num=#{num}
+		update qna set
+		readcount=readcount+1 where num=#{num}
 	</update>
 
 	<delete id="deleteqna" parameterType="int">
-		delete from qna where num=#{num}
+		delete from qna where
+		num=#{num}
 	</delete>
 
 	<update id="updateqna" parameterType="qnaDTO">
-		update qna set writer=#{writer},subject=#{subject},email=#{email},content=#{content} where num=#{num}
+		update qna set
+		subject=#{subject},content=#{content} where num=#{num}
 	</update>
 	<update id="restepCount" parameterType="java.util.HashMap">
 		${sql}
 	</update>
+	<select id="getTotalQna" resultType="int">
+		select count(*) from qna
+	</select>
 </mapper>
