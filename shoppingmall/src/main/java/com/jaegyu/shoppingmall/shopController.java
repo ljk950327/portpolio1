@@ -247,29 +247,28 @@ public class shopController {
 
 		int pg = Integer.parseInt(arg0.getParameter("pg"));
 		int gk = ServletRequestUtils.getIntParameter(arg0, "gk"); // groupkind
-		int totalPage;															// 그룹판별..
+		int totalPage; 
 
-		int endNum = pg * 2;
-		int startNum = endNum - 1;
-		if (gk <3) {
-		int totalGoods = goodsDAO.getTotalGoods(gk);
-		 totalPage = (totalGoods + 1) / 2;
-		}else{
+		int endNum = pg * 5;
+		int startNum = endNum - 4;
+		if (gk < 3) {
+			int totalGoods = goodsDAO.getTotalGoods(gk);
+			totalPage = (totalGoods + 4) / 5;
+		} else {
 			int totalQna = qnaDAO.getTotalQna();
-			totalPage = (totalQna + 1) / 2;
+			totalPage = (totalQna + 4) / 5;
 		}
-		
 
 		int startPage = (pg - 1) / 3 * 3 + 1;
 		int endPage = startPage + 2;
 		if (totalPage < endPage)
 			endPage = totalPage;
 
-		if (gk <3) {
+		if (gk < 3) {
 			List<goodsDTO> list = (ArrayList) goodsDAO.listGoods(gk, startNum, endNum);
 			mav.addObject("list", list);
 		} else {
-			List<qnaDTO> list = (ArrayList) qnaDAO.listqna(startNum,endNum);
+			List<qnaDTO> list = (ArrayList) qnaDAO.listqna(startNum, endNum);
 			mav.addObject("list", list);
 		}
 
@@ -367,7 +366,7 @@ public class shopController {
 		}
 		mav.setViewName("cart");
 		return mav;
-		
+
 	}
 
 	@RequestMapping(value = "order.me")
@@ -377,19 +376,18 @@ public class shopController {
 		String buyer = (String) session.getAttribute("id");
 		List<orderDTO> list = orderDAO.orderList(buyer);
 
-		
-		mav.addObject("list",list);
+		mav.addObject("list", list);
 		mav.setViewName("bill");
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "QnaWrite.me", method = RequestMethod.GET)
 	public ModelAndView QnaWrite(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("QnaWrite");
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "QnaWrite.me", method = RequestMethod.POST)
 	public ModelAndView QnaWritePro(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
 
@@ -398,7 +396,8 @@ public class shopController {
 		return new ModelAndView("redirect:List.me?pg=1&gk=3");
 
 	}
-	protected qnaDTO getQnaDTO(HttpServletRequest arg0) throws Exception{
+
+	protected qnaDTO getQnaDTO(HttpServletRequest arg0) throws Exception {
 		qnaDTO dto = new qnaDTO();
 		dto.setNum(ServletRequestUtils.getIntParameter(arg0, "num"));
 		dto.setSubject(arg0.getParameter("subject"));
@@ -408,8 +407,25 @@ public class shopController {
 		dto.setRe_step(ServletRequestUtils.getIntParameter(arg0, "re_step"));
 		dto.setRe_level(ServletRequestUtils.getIntParameter(arg0, "re_level"));
 		return dto;
-	}	
-	
-		
+	}
+
+	@RequestMapping(value = "QnaContent.me")
+	public ModelAndView QnaContent(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		int pg = ServletRequestUtils.getIntParameter(arg0, "pg");
+		int num = ServletRequestUtils.getIntParameter(arg0, "num");
+		qnaDAO.readCountPlus(num);
+		qnaDTO dto = qnaDAO.getqna(num);
+		if (dto != null) {
+			mav.addObject("dto", dto);
+			mav.addObject("pg", pg);
+			mav.setViewName("QnaContent");
+		} else {
+			mav.addObject("msg", "오류!");
+			mav.addObject("url", "List.me?pg=1&gk=3");
+			mav.setViewName("message");
+		}
+		return mav;
+	}
 
 }

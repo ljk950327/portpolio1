@@ -6,7 +6,7 @@ public class qnaDAOImpl implements qnaDAO {
 
 	@Override
 	public List<qnaDTO> listqna(int startNum,int endNum) {
-		String sql="select * from (select rownum rn, tt.* from (select * from qna order by num desc ) tt) where rn >="+startNum+" and rn <="+endNum;
+		String sql="select * from (select rownum rn, tt.* from (select * from qna order by re_step asc) tt) where rn >="+startNum+" and rn <="+endNum;
 		return qnaMapper.listqna(sql);
 	}
 
@@ -19,9 +19,9 @@ public class qnaDAOImpl implements qnaDAO {
 	@Override
 	public int insertqna(qnaDTO dto) {
 		String sql=null;
-		if(dto.getNum()==0){	
+		if(dto.getNum()==0){	//글쓰기
 			sql="update qna set re_step=re_step+1";
-		} else{	
+		} else{					//답글쓰기
 			sql="update qna set re_step=re_step+1 where re_step>"+dto.getRe_step();
 			dto.setRe_step(dto.getRe_step()+1);
 			dto.setRe_level(dto.getRe_level()+1);

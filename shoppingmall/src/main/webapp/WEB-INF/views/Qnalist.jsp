@@ -52,11 +52,20 @@ th {
 							<c:forEach var="list" items="${requestScope.list }">
 								<tr>
 									<td>${list.num }</td>
-									<td><a href="qnaContent.me?num=${list.num }">
-											${list.subject } </a></td>
+									<td>
+										<c:if test="${list.re_level>0 }">
+											<img src="img/level.gif" width="${list.re_level*10 }">
+											<img src="img/re.gif">
+										</c:if>
+										<a href="QnaContent.me?num=${list.num }&pg=${pg}">
+											${list.subject } </a>
+										<c:if test="${list.readcount>10 }">
+											<img src="img/hot.gif">
+										</c:if>
+									</td>
 									<td>${list.writer }</td>
 									<td>${list.reg_date }</td>
-									<td>${list.readcount }&gt;</td>
+									<td>${list.readcount }</td>
 									<td>${list.ip }</td>
 								</tr>
 							</c:forEach>
@@ -76,8 +85,8 @@ th {
 								<c:forEach var="i" begin="${startPage }" end="${endPage }"
 									step="1">
 									<c:if test="${i==pg }">
-										<li class="page-item"><a class="page-link"
-											href="List.me?pg=${requestScope.startPage}&gk=${gk}">${i }</a>
+										<li class="page-item"><a class=" page-link"
+											href="List.me?pg=${i}&gk=${gk}"><b>${i }</b></a>
 										</li>
 									</c:if>
 									<c:if test="${i!=pg }">

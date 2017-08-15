@@ -4,27 +4,19 @@
 <%@ include file="top.jsp" %>
 
         <div class="row">
-        <div class="col-md-12">
+        	<div class="col-md-12">
           <ul class="nav nav-tabs">
             <li class="nav-item">
               <a href="index.me" class="nav-link"><i class="fa fa-home fa-home"></i>&nbsp;Home</a>
             </li>
-            <c:if test="${dto.gk==1 }">
+
             <li class="nav-item">
-              <a href="List.me?pg=1&gk=1" class="active nav-link">Hat</a>
+              <a href="List.me?pg=1&gk=1" class="${dto.gk==1?'active nav-link':'nav-link'  }">Hat</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="List.me?pg=1&gk=2">Accessory</a>
+              <a class="${dto.gk==2?'active nav-link':'nav-link'  }" href="List.me?pg=1&gk=2">Accessory</a>
             </li>
-			</c:if>
-			<c:if test="${dto.gk==2 }">
-            <li class="nav-item">
-              <a href="List.me?pg=1&gk=1" class="active nav-link">Hat</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="List.me?pg=1&gk=2">Accessory</a>
-            </li>
-			</c:if>
+
             <li class="nav-item">
               <a href="List.me?pg=1&gk=3" class="nav-link">Q&amp;A</a>
             </li>
