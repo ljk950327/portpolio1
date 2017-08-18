@@ -1,13 +1,16 @@
 # portpolio1
+<h1>shoppingmall</h1>
 
+<h3>
 오라클 접속 : db.properties
-
+</h3>
 (member_admin=1 : 관리자)
 (member_admin=0 : 유저)
 
 현재
 
 구현:
+<br/>
 로그인
 회원가입
 회원수정
@@ -24,6 +27,7 @@
 페이징 처리
 
 구현 예정:
+<br/>
 관리자인덱스
 멤버관리
 
@@ -31,6 +35,6 @@
 모자 악세사리 삭제
 
 주문내역처리
-<br>
+<br/>
 git cli이용해서 clone으로 받은후 연결해보기
 
